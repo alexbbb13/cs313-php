@@ -24,10 +24,12 @@
             <p>My major is <b>Software Engineering</b>, as I aim to get as much structured IT field knowledge as possible,
                 because I was a fan of computers and programming since childhood.
             </p>
-    <div class="timestamp">
+     <hr>
+        <p class="timestamp">
         <?php
-            echo '<p>Created: '. date('Y-m-d') .'\n</p>';
+            echo 'Created at: '. date('Y-m-d');
         ?>
+        </p>
     </div>
 
 </body>
