@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Order Calculator</title>
+</head>
+<!-- Setup all the listeners -->
+<body onload="setListeners()">
+ <script src="check.js"></script>
+ <!--Create an HTML form that posts data to a PHP form which handles the submission, processes the data and reports the results.
+ Core Requirements
+
+ Create an HTML form that contains the following components:
+
+ Name (text)
+
+ Email (text)
+
+ Major (radio button) with the following options:
+
+ Computer Science
+
+ Web Design and Development
+
+ Computer information Technology
+
+ Computer Engineering
+
+ Comments (text area)
+
+ You do not need to style this HTML form per se, but each input should be labeled and separated from each other.
+
+ Create a PHP script to handle this form, so that when the form is submitted, it captures the form data and produces a web page that displays:
+
+ The user's name
+
+ Their email address, with a "mailto:" link for the email address
+
+ Their major
+
+ Their comments
+
+ Again, this data need not be styled, but it should be labeled and separated from each other.
+
+ Use the POST method for your form submission.
+
+ Add to your form a checkbox list for the continents the user has visited with the following options:
+
+ North America
+
+ South America
+
+ Europe
+
+ Asia
+
+ Australia
+
+ Africa
+
+ Antarctica
+
+ Then, modify your PHP page to read and display this list.
+Rubric-->
+
+ <form action="/action_page.php">
+     Name:<br>
+     <input type="text" name="name">
+     <br>
+     E-mail:<br>
+     <input type="text" name="email">
+     <br><br>
+
+     <input type="radio" name="major" value="Computer Science" checked> Computer Science<br>
+     <input type="radio" name="major" value="Web Design and Development"> Web Design and Development<br>
+     <input type="radio" name="major" value="Computer information Technology"> Computer information Technology<br>
+     <input type="radio" name="major" value="Computer Engineering"> Computer Engineering<br>
+     <textarea name="comment" rows="10" cols="30"></textarea><br>
+     <input type="submit" value="Submit">
+ </form>
+
+</body>
+</html>
