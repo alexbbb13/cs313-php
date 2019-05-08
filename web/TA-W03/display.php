@@ -10,7 +10,7 @@ echo "Email:" . "<br>" . "<a href= 'mailto:'" .  $_POST["Email"] . ">" . $_POST[
 echo "Major:" . "<br>" . $_POST["Major"] . "<br><br>";
 echo "Comments:" . "<br>"  . $_POST["comments"] . "<br><br>";
 
-$state = array("NA"=>"North America", "SA"=>"South America", "EU"=>"Europe", "EU"=>"Europe", "EU"=>"Asia", "AU"=>"Australia", "AF"=>"Africa", "AN"=>"Antartica");
+$state = array("NA"=>"North America", "SA"=>"South America", "EU"=>"Europe", "AS"=>"Asia", "AU"=>"Australia", "AF"=>"Africa", "AN"=>"Antartica");
 
 echo "Continents Vistited:" . "<br>";
     if(isset($_POST['continent'])) {
