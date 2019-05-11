@@ -84,7 +84,7 @@
 
     function listAddress(){
         echo '<div class="shop_item"><h2 class = "delivery-address-title">Deliver to:</h2><br>';
-        echo '<p class = "delivery-address-text">';
+        echo '<p class = "delivery-address-title">';
         echo getKey("address_line1")." ".getKey("address_line2")." , ".getKey("address_city")." ".getKey("address_state").",".getKey("address_zip");
         echo '</p><div>';
     }
@@ -98,6 +98,7 @@
     }
     
     ?>
+    
     </div>
     <div class="div_delivery" id="link_delivery">Delivery terms:<br><strong>FREE</strong> delivery on all orders above $30, all other orders delivery fee <i>$10</i></div>
 
