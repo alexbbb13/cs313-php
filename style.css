@@ -1,0 +1,117 @@
+#menu_items {
+    font: 400 30px/1.5 'Pacifico', Helvetica, sans-serif;
+    color: #ff9403;
+}
+#shopping_cart {
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: x-large;
+    color: #ff4c00;
+}
+
+#link_delivery {
+    font-family: "Helvetica", sans-serif;
+    font-size: 30px;
+    vertical-align: bottom;
+    color: #6c0d02;
+}
+li:hover {
+    color: #ff4c00;
+    cursor: pointer;
+}
+
+li > a {
+    color: #ff9403;
+    cursor: pointer;
+}
+
+li > a:hover {
+    color: #ff4c00;
+    cursor: pointer;
+}
+
+
+        .div_title { grid-area: header;  margin: 0 auto; text-align: center}
+        .div_menu { grid-area: menu; }
+        .div_content { grid-area: main; }
+        .div_shopping_cart { grid-area: right; }
+        .div_delivery { grid-area: footer }
+
+        .div_title_text {
+            display: block;
+            font: 400 100px/1.5 'Pacifico', Helvetica, sans-serif;
+            color: #ffa60c;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1), 7px 7px 0px rgba(0,0,0,0.05);
+        }
+
+        /*unique for this page*/
+        #shopping_cart_span:hover{
+            color: #ff9403;
+            cursor: pointer;
+        }
+
+
+        a#shopping_cart_span{
+            color: #ff4c00;
+        }
+
+        #shopping_cart_span:hover{
+            color: #ff9403;
+            cursor: pointer;
+        }
+        /*--------------------*/
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                    'header header header header header header'
+                    'menu main main main main right'
+                    'menu footer footer footer footer footer';
+            grid-gap: 0px;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            padding: 20px;
+        }
+        tr {
+            font: 400 30px/1.5 'Pacifico', Helvetica, sans-serif;
+            font-size: medium;
+            color: #ff4c00;
+            text-align: center;
+        }
+
+        .delivery-address-title {
+            font: 400 30px/1.5 'Pacifico', Helvetica, sans-serif;
+            font-size: xx-large;
+            color: #ff4c00;
+            text-align: center;
+        }
+
+        .delivery-address-text {
+            font: 400 30px/1.5 'Pacifico', Helvetica, sans-serif;
+            font-size: large;
+            color: #ff4c00;
+            text-align: center;
+        }
+
+        .shop_item {
+            align-content: center;
+        }
+        .shop_item > img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .div_delivery {
+            border: #ff4c00 dashed;
+            padding: 10px;
+        }
+        .div_shopping_cart{
+            text-align: center;
+            display: inline;
+        }
+
+        .grid-container > div {
+            background-color: rgba(255, 255, 255, 0.8);
+
+        }
