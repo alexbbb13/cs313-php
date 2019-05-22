@@ -14,10 +14,8 @@
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
         $scripture_id = $_GET['id'];
-        $db1 = getDb();
-        var_dump($db1);
-        $allRows = selectById($db1, $scripture_id);
-        var_dump($allRows);
+        $db = getDb();
+        $allRows = selectById($db, $scripture_id);
         foreach($allRows as $r) 
         {
                     echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
