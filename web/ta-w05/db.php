@@ -2,7 +2,9 @@
 
 function selectAll($db) {	
 	$stmt = $db->prepare('SELECT * FROM scriptures');
+	var_dump($stmt);
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	var_dump($rows);
 	return $rows;
 }
 
