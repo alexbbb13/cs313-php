@@ -25,19 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				    $book = $_GET['book'];
 					 $allRows = selectByBook($db, $book);					    
 				} else {
-					echo "<p>no book!</p>";
 				    $allRows = selectAll($db);
-				    var_dump($allRows);					    
-				}
+				 }
 				foreach($allRows as $r) 
 				{
 					echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
-					echo ' <span class="text_content">'.$r['content'].'</span>';
+					//echo ' <span class="text_content">'.$r['content'].'</span>';
+					echo '<a href="details.php?id='.$r['id'].'>Click here</a>'
 					echo '<br>';
 				}
 
     } else {
-    	echo "<p>no request method!</p>";
+    	//echo "<p>no request method!</p>";
     }
 ?>
 </body>
