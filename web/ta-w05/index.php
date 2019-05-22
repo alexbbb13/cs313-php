@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				}
 				foreach($allRows as $r) 
 				{
-					echo '<span class="text_title">'.$r['book']." ".$r['chapter'].":".$r['verse'].'</span>';
+					echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
 					echo ' <span class="text_content">'.$r['content'].'</span>';
 					echo '<br>';
 				}

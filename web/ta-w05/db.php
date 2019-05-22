@@ -1,7 +1,7 @@
 <?php
 
 function selectAll($db) {	
-	$stmt = $db->prepare('SELECT * FROM scriptures');
+	$stmt = $db->prepare('SELECT book, chapter, verse, content FROM scriptures');
 	var_dump($stmt);
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	var_dump($rows);
