@@ -26,7 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					 $allRows = selectByBook($db, $book);					    
 				} else {
 					echo "<p>no book!</p>";
-				    $allRows = selectAll($db);					    
+				    $allRows = selectAll($db);
+				    var_dump($allRows);					    
 				}
 				foreach($allRows as $r) 
 				{
