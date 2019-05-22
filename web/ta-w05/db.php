@@ -22,7 +22,7 @@ function selectByBook($db, $book) {
 
 function getDb()
 {
-	return getLocalDb();
+	return getHerokuDb();
 }
 
 function getHerokuDb() {
