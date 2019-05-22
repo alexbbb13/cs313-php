@@ -25,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				    $book = $_GET['book'];
 					 $allRows = selectByBook($db, $book);					    
 				} else {
+					echo "<p>no book!</p>";
 				    $allRows = selectAll($db);					    
 				}
 				foreach($allRows as $r) 
@@ -33,7 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					echo ' <span class="text_content">'.$r['content'].'</span>';
 					echo '<br>';
 				}
-        }
+
+    } else {
+    	echo "<p>no request method!</p>";
+    }
 ?>
 </body>
 </html>
