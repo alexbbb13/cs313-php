@@ -10,12 +10,14 @@
 
 <?php
    require 'db.php';
-   $db = getDb();
+   
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
         $scripture_id = $_GET['id'];
-        var_dump($db);
-        $allRows = selectById($db);
+        $db1 = getDb();
+        var_dump($db1);
+        $allRows = selectById($db1);
+        var_dump($allRows);
         foreach($allRows as $r) 
         {
                     echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
