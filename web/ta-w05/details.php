@@ -16,7 +16,7 @@
         $scripture_id = $_GET['id'];
         $db1 = getDb();
         var_dump($db1);
-        $allRows = selectById($db1);
+        $allRows = selectById($db1, $scripture_id);
         var_dump($allRows);
         foreach($allRows as $r) 
         {
