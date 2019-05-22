@@ -9,11 +9,12 @@
 <br>
 <?php
    require 'db.php';
-
+   $db = getDb();
 	if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
         $scripture_id = $_GET['id'];
-        $db = getDb();
+        //$db = getDb();
+        var_dump($db);
         $r = selectById($db);
         {
 					echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
