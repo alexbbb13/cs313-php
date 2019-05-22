@@ -16,10 +16,10 @@
         $db = getDb();
         $r = selectById($db);
         {
-					echo '<span class="text_title">'.$r['book']." ".$r['chapter'].":".$r['verse'].'</span>';
-					echo ' <span class="text_content">'.$r['content'].'</span>';
+					echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
+					echo ' <span class="text_content">'.$r['content'].'</span><br>';
 					echo '<br>';
-			}
+		}
 ?>
 </body>
 </html>
