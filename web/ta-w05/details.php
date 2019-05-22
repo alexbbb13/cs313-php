@@ -7,6 +7,7 @@
 <body>
 <h2>Scripture details</h2>
 <br>
+<!--
 <?php
    require 'db.php';
    $db = getDb();
@@ -22,5 +23,6 @@
 					echo '<br>';
 		}
 ?>
+-->
 </body>
 </html>

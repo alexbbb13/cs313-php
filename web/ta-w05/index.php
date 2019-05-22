@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				{
 					echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
 					//echo ' <span class="text_content">'.$r['content'].'</span>';
-					echo '<a href="details.php?id='.$r['id'].'">Click here</a>';
+					echo '<a href="/details.php?id='.$r['id'].'">Click here</a>';
 					echo '<br>';
 				}
 
