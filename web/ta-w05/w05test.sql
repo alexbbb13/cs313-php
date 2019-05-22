@@ -64,8 +64,8 @@ When you have finished this activity, please fill out the assessment in I-Learn.
 
 create table scriptures
 (  
-	 id serial not null primary key,
-	 book varchar(40) not null,
+	id serial not null primary key,
+	book varchar(40) not null,
     chapter integer not null,
     verse integer not null,
     content text not null
