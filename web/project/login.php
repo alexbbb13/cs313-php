@@ -29,7 +29,7 @@ session_start();
     }
 
       function printUser($username) {
-        echo '<h2>Welcome, $username</h2>';
+        echo '<h2>Welcome, '.$username.'</h2>';
     }
    
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login']) && isset($_POST['password'])){
