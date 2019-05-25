@@ -21,7 +21,7 @@
   color: white;
 }
 
-.navbar ul {
+ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -30,11 +30,11 @@
   background-color: #f3f3f3;
 }
 
-.navbar li {
+li {
   float: left;
 }
 
-.navbar li a {
+li a {
   display: block;
   color: #666;
   text-align: center;
@@ -42,11 +42,11 @@
   text-decoration: none;
 }
 
-.navbar li a:hover:not(.active) {
+li a:hover:not(.active) {
   background-color: #ddd;
 }
 
-.navbar li a.active {
+li a.active {
   color: white;
   background-color: #4CAF50;
 }
