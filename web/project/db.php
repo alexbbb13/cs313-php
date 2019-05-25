@@ -71,10 +71,10 @@ function selectJobsByName($db, $name) {
 	if(null == $filteredName) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT * FROM jobs WHERE title LIKE :query OR description LIKE :query');
+	///$stmt = $db->prepare('SELECT * FROM jobs WHERE title=:query OR description=:query');
 	$param = '"%'.$filteredName.'%"';
-	$stmt->bindParam(':query', $param, PDO::PARAM_STR, 40);
-	var_dump($stmt);
+	$query = 'SELECT * FROM jobs WHERE title LIKE '.$param.'OR description LIKE '.$param;
+	$stmt = $db->query($query);
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
