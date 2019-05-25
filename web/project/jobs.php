@@ -64,9 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					printTable($allRows);
 				}
 
-    } else {
-    	//echo "<p>no request method!</p>";
-    }
+    } 
 ?>
 </body>
 </html>

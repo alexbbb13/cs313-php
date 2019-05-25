@@ -7,13 +7,16 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Freelance services</title>
+    <link rel = "stylesheet"
+          type = "text/css"
+          href = "style.css" />
 </head>
 <body>
 <h2>Freelance services</h2>
 <br>
-<form action="./index.php" method="GET">
+<form action="./freelance.php" method="GET">
   Filter:
-  <input name="freelance" type="text">
+  <input name="filter" type="text">
   <br><br>
   <input type="submit">
 </form>
@@ -22,32 +25,43 @@ session_start();
 require 'db.php';
 require 'session.php';
 //Local or Heroku
-function printTable($table) {
-	echo'<h2>List of services:</h2><br>';
+function printTable($allRows) {
+	echo'<h2>Freelance services:</h2><br>';
+	echo '<table class="fancy">';
+	echo '<tr>';
+	echo '<th>Title</th>';
+    echo '<th>Short Description</th>';
+    echo '<th>Rate</th>';
+    echo '<th>Action</th>';
+    echo ' </tr>';
+	foreach($allRows as $r) 
+				{
+					echo '<tr>';
+					echo '<td>'.$r['title'].'</td>';
+					echo '<td>'.$r['subtitle'].'</td>';
+					$money  = $r['rate_in_cents']/100;
+					setlocale(LC_MONETARY, 'en_US');
+                    echo '<td>'.money_format('%(#10n', $money).'</td>';
+					echo '<td><a href="freelancedetails.php?id='.$r['id'].'">More Info</a></td>';
+					echo '</tr>';
+				}
+	echo '</table>';			
 }
 
 $db = getDb();
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+f ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
-           if (isset($_GET['freelance']))
-				{
-				    $freelance = $_GET['freelance'];
-					 $allRows = selectFreelanceByName($db, $freelance);					    
-				} else {
-				    $allRows = selectFreelanceAll($db);
+           if (isset($_GET['filter']) && $_GET['filter'] !== '')
+					{
+					    $filter = $_GET['filter'];
+						$allRows = selectFreelanceByName($db, $filter);					    
+					} else {
+					    $allRows = selectFreelanceAll($db);
+					}
+				if(sizeof($allRows) > 0) {
+					printTable($allRows);
 				}
-				foreach($allRows as $r) 
-				{
-					echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'</b>';
-					//echo ' <span class="text_content">'.$r['content'].'</span>';
-					echo '<a href="details.php?id='.$r['id'].'">Click here</a>';
-					//echo '<a href="details.html">Click here</a>';
-					echo '<br>';
-				}
-
-    } else {
-    	//echo "<p>no request method!</p>";
-    }
+    } 
 ?>
 </body>
 </html>

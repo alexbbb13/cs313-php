@@ -63,10 +63,24 @@ create table messages
 );	
 
 INSERT INTO users (username,login,password, salt, password_hash, status, created_at)
-VALUES ('Alex Brown','alex_bbb@mail.ru', 'qqq','salt', '0xPHASH', 'Active', CURRENT_TIMESTAMP);
+VALUES ('Tyler Newton','1@mail.ru', 'qqq','salt', '0xPHASH', 'Active', CURRENT_TIMESTAMP);
+INSERT INTO users (username,login,password, salt, password_hash, status, created_at)
+VALUES ('Maria Dark','2@mail.ru', 'qqq','salt', '0xPHASH', 'Active', CURRENT_TIMESTAMP);
+INSERT INTO users (username,login,password, salt, password_hash, status, created_at)
+VALUES ('Kyle DeVille','3@mail.ru', 'qqq','salt', '0xPHASH', 'Active', CURRENT_TIMESTAMP);
 
 
 INSERT INTO jobs (user_id,title,description, rate_in_cents, projected_hours, job_status, created_at)
 VALUES ((select id from users where username = 'Alex Brown'),'Create a POSTGRESQL database', 'Create a fancy POSTGRESQL database',2000, 2, 'Open', CURRENT_TIMESTAMP);
 INSERT INTO jobs (user_id,title,description, rate_in_cents, projected_hours, job_status, created_at)
 VALUES ((select id from users where username = 'Alex Brown'),'Create an Android application', 'Create a fancy Android application',3000, 160, 'Open', CURRENT_TIMESTAMP);
+
+
+INSERT INTO freelance_services (user_id,title,subtitle, description, rate_in_cents, active, created_at)
+VALUES ((select id from users where username = 'Alex Brown'),'Android Developer', 'I am good at developing Android apps','Experienced with Kotlin and Dagger',3000, false, CURRENT_TIMESTAMP);
+INSERT INTO freelance_services (user_id,title,subtitle, description, rate_in_cents, active, created_at)
+VALUES ((select id from users where username = 'Tyler Newton'),'iOS Developer', 'I am good at developing iOS apps','A Swift and Objective-C guy', 3000, false, CURRENT_TIMESTAMP);
+INSERT INTO freelance_services (user_id,title,subtitle, description, rate_in_cents, active, created_at)
+VALUES ((select id from users where username = 'Tyler Newton'),'PHP Developer', 'I am equally good at developing PHP apps','I am a PHP fan', 3000, false, CURRENT_TIMESTAMP);
+INSERT INTO freelance_services (user_id,title,subtitle, description, rate_in_cents, active, created_at)
+VALUES ((select id from users where username = 'Maria Dark'),'Web Designer', 'Web design','Affordable rates for a high quality WEB design', 2000, false, CURRENT_TIMESTAMP);

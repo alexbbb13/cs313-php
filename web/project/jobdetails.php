@@ -20,7 +20,7 @@ require 'session.php';
 //Local or Heroku
 function printTable($allRows) {
 	echo'<h2>Job Details:</h2><br>';
-	echo '<table>';
+	echo '<table class="fancy">';
 	echo '<tr>';
 	echo '<th>Created by</th>';
     echo '<th>Title</th>';

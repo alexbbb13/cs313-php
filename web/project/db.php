@@ -55,8 +55,27 @@ function selectFreelanceByName($db, $name) {
 	if(null == $filteredName) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT * FROM freelance_services WHERE title=%:name% OR subtitle=%:name% OR description=title=%:name%');
-	$stmt->bindParam(':name', $filteredName, PDO::PARAM_STR, 40);
+	$param = "'%".$filteredName."%'";
+	$query = 'SELECT * FROM freelance_services WHERE title LIKE '.$param.' OR description LIKE '.$param.' OR subtitle LIKE '.$param;
+	$stmt = $db->query($query);
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectFreelanceById($db, $id) {
+	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredId) {
+		return null;
+	}
+	$stmt = $db->prepare('SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id');
+	$stmt->bindParam(':id', $filteredId, PDO::PARAM_STR, 40);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectFreelanceAll($db) {
+	$stmt = $db->query('SELECT * FROM freelance_services');
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
@@ -90,7 +109,6 @@ function selectJobsById($db, $id) {
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
-
 
 function selectJobsAll($db) {
 	$stmt = $db->query('SELECT * FROM jobs');
