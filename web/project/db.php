@@ -29,9 +29,6 @@ function selectByBook($db, $book) {
 function selectByLoginPassword($db, $login, $password) {
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
-	var_dump($db);
-	var_dump($filteredLogin);
-	var_dump($filteredPassword);
 	if(null == $filteredLogin || null == $filteredPassword) {
 		return null;
 	}
@@ -39,7 +36,6 @@ function selectByLoginPassword($db, $login, $password) {
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 40);
 	$stmt->execute();
-	var_dump($stmt);
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }

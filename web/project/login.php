@@ -37,7 +37,7 @@ session_start();
         $login = $_POST['login'];
         $password = $_POST['password'];
         $db = getDb();
-        $users = listAll($db); //selectByLoginPassword($db, $login, $password);
+        $users = selectByLoginPassword($db, $login, $password);//listAll($db); //
     }
     var_export($users);
     if(sizeof($users) == 0) {
