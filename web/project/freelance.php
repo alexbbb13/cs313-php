@@ -12,6 +12,10 @@ session_start();
           href = "style.css" />
 </head>
 <body>
+<?php
+require 'navbar.php';
+?>	
+
 <h2>Freelance services</h2>
 <br>
 <form action="./freelance.php" method="GET">
@@ -49,9 +53,9 @@ function printTable($allRows) {
 }
 
 $db = getDb();
-f ($_SERVER["REQUEST_METHOD"] == "GET") {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
-           if (isset($_GET['filter']) && $_GET['filter'] !== '')
+           if ( isset($_GET['filter']) && $_GET['filter'] !== '')
 					{
 					    $filter = $_GET['filter'];
 						$allRows = selectFreelanceByName($db, $filter);					    

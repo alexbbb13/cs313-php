@@ -12,6 +12,9 @@ session_start();
           href = "style.css" />
 </head>
 <body>
+<?php
+require 'navbar.php';
+?>	
 <br>
 
 <?php

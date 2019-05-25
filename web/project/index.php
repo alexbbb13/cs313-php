@@ -12,6 +12,9 @@ session_start();
           href = "style.css" />
 </head>
 <body>
+<?php
+require 'navbar.php';
+?>	
 <h2>Available jobs</h2>
 <br>
 <form action="./jobs.php" method="GET">
