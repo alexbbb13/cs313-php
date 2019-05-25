@@ -47,7 +47,7 @@ session_start();
             // user is found, storing the user Id into session
             foreach($users as $r) 
                 {
-                    sessionSetUser($r['id']);
+                    setSessionUser($r['id']);
                     printUser($r['username']);
                 }    
     } else {
