@@ -79,6 +79,24 @@ function selectJobsByName($db, $name) {
 	return $rows;
 }
 
+title varchar(80) not null,
+	description varchar(6000),
+	rate_in_cents integer not null,
+	projected_hours 
+
+function selectJobsById($db, $id) {
+	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredLogin) {
+		return null;
+	}
+	$stmt = $db->prepare('SELECT id, users.username, title, description, rate_in_cents, projected_hours FROM jobs WHERE id=:id inner join users on jobs.user_id=users.id');
+	$stmt->bindParam(':id', $filteredId, PDO::PARAM_STR, 40);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+
 function selectJobsAll($db) {
 	$stmt = $db->query('SELECT * FROM jobs');
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
