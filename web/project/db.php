@@ -79,11 +79,6 @@ function selectJobsByName($db, $name) {
 	return $rows;
 }
 
-title varchar(80) not null,
-	description varchar(6000),
-	rate_in_cents integer not null,
-	projected_hours 
-
 function selectJobsById($db, $id) {
 	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	if(null == $filteredLogin) {
