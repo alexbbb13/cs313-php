@@ -87,7 +87,6 @@ function selectJobsById($db, $id) {
 	$stmt = $db->prepare('SELECT jobs.id, users.username, jobs.title, jobs.description, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN users on jobs.user_id=users.id WHERE jobs.id=:id');
 	$stmt->bindParam(':id', $filteredId, PDO::PARAM_STR, 40);
 	$stmt->execute();
-	var_dump($stmt);
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }

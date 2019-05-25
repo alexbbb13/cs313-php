@@ -7,6 +7,9 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Available jobs</title>
+     <link rel = "stylesheet"
+          type = "text/css"
+          href = "style.css" />
 </head>
 <body>
 <h2>Available jobs</h2>
@@ -24,7 +27,7 @@ require 'session.php';
 //Local or Heroku
 function printTable($allRows) {
 	echo'<h2>Jobs:</h2><br>';
-	echo '<table>';
+	echo '<table class ="fancy">';
 	echo '<tr>';
     echo '<th>Title</th>';
     echo '<th>Job description</th>';

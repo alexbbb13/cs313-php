@@ -7,6 +7,9 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Job details</title>
+     <link rel = "stylesheet"
+          type = "text/css"
+          href = "style.css" />
 </head>
 <body>
 <br>
@@ -36,7 +39,7 @@ function printTable($allRows) {
 					setlocale(LC_MONETARY, 'en_US');
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
 					echo '<td>'.$r['projected_hours'].'</td>';
-					echo '<a href="apply.php?id='.$r['id'].'">Apply</a>';
+					echo '<td><a href="apply.php?id='.$r['id'].'">Apply</a></td>';
 					echo '</tr>';
 				}
 	echo '</table>';			
