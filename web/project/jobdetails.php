@@ -29,7 +29,7 @@ function printTable($allRows) {
 	foreach($allRows as $r) 
 				{
 					echo '<tr>';
-					echo '<td>'.$r['username'].'</td>'
+					echo '<td>'.$r['username'].'</td>';
 					echo '<td>'.$r['title'].'</td>';
 					echo '<td>'.$r['description'].'</td>';
 					$money  = $r['rate_in_cents']/100;
