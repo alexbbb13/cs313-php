@@ -77,7 +77,7 @@ function selectJobsByName($db, $name) {
 	return $rows;
 }
 
-function selectJobsAll() {
+function selectJobsAll($db) {
 	$stmt = $db->query('SELECT * FROM jobs');
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
