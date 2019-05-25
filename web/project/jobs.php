@@ -41,7 +41,7 @@ function printTable($allRows) {
 					setlocale(LC_MONETARY, 'en_US');
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
 					echo '<td>'.$r['projected_hours'].'</td>';
-					echo '<a href="jobdetails.php?id='.$r['id'].'">Job details</a>';
+					echo '<td><a href="jobdetails.php?id='.$r['id'].'">Job details</a></td>';
 					echo '</tr>';
 				}
 	echo '</table>';			
