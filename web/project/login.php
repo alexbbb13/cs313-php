@@ -39,11 +39,11 @@ session_start();
         $db = getDb();
         $users = selectByLoginPassword($db, $login, $password);//listAll($db); //
     }
-    var_export($users);
-    if(sizeof($users) == 0) {
+    $countUsers =count($users); 
+    if($countUsers == 0) {
             //User not found
             printNoUser();
-    } else if (sizeof($users) == 1) {
+    } else if ($countUsers == 1) {
             // user is found, storing the user Id into session
             foreach($users as $r) 
                 {
