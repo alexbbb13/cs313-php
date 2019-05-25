@@ -26,6 +26,11 @@ function selectByBook($db, $book) {
 	return $rows;
 }
 
+/*
+ *	Login page
+ *
+ */
+
 function selectByLoginPassword($db, $login, $password) {
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
@@ -40,6 +45,11 @@ function selectByLoginPassword($db, $login, $password) {
 	return $rows;
 }
 
+/*
+ *	Freelancers page
+ *
+ */
+
 function selectFreelanceByName($db, $name) {
 	$filteredName = filter_var($name, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	if(null == $filteredName) {
@@ -50,6 +60,34 @@ function selectFreelanceByName($db, $name) {
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
+
+/*
+ *	Jobs
+ *
+ */
+
+function selectJobsByName($db, $name) {
+	filteredName = filter_var($name, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredName) {
+		return null;
+	}
+	$stmt = $db->prepare('SELECT * FROM jobs WHERE title LIKE "%:name%" OR description LIKE "%:name%"');
+	$stmt->bindParam(':name', $filteredName, PDO::PARAM_STR, 40);
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectJobsAll() {
+	$stmt = $db->query('SELECT * FROM jobs');
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+/*
+ *	Db
+ *
+ */
+
 
 function getDb()
 {
