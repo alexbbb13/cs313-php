@@ -81,12 +81,13 @@ function selectJobsByName($db, $name) {
 
 function selectJobsById($db, $id) {
 	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
-	if(null == $filteredLogin) {
+	if(null == $filteredId) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT id, users.username, title, description, rate_in_cents, projected_hours FROM jobs WHERE id=:id inner join users on jobs.user_id=users.id');
+	$stmt = $db->prepare('SELECT jobs.id, users.username, jobs.title, jobs.description, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN users on jobs.user_id=users.id WHERE jobs.id=:id');
 	$stmt->bindParam(':id', $filteredId, PDO::PARAM_STR, 40);
 	$stmt->execute();
+	var_dump($stmt);
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
