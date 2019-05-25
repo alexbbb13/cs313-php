@@ -50,7 +50,7 @@ function printTable($allRows) {
 $db = getDb();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
-           if (isset($_GET['filter'] && $_GET['filter'] !== ''))
+           if (isset($_GET['filter']) && $_GET['filter'] !== '')
 					{
 					    $filter = $_GET['filter'];
 						$allRows = selectJobsByName($db, $filter);					    
