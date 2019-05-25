@@ -64,3 +64,9 @@ create table messages
 
 INSERT INTO users (username,login,password, salt, password_hash, status, created_at)
 VALUES ('Alex Brown','alex_bbb@mail.ru', 'qqq','salt', '0xPHASH', 'Active', CURRENT_TIMESTAMP);
+
+
+INSERT INTO jobs (user_id,title,description, rate_in_cents, projected_hours, job_status, created_at)
+VALUES ((select id from users where username = 'Alex Brown'),'Create a POSTGRESQL database', 'Create a fancy POSTGRESQL database',2000, 2, 'Open', CURRENT_TIMESTAMP);
+INSERT INTO jobs (user_id,title,description, rate_in_cents, projected_hours, job_status, created_at)
+VALUES ((select id from users where username = 'Alex Brown'),'Create an Android application', 'Create a fancy Android application',3000, 160, 'Open', CURRENT_TIMESTAMP);
