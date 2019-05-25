@@ -67,7 +67,7 @@ function selectFreelanceByName($db, $name) {
  */
 
 function selectJobsByName($db, $name) {
-	filteredName = filter_var($name, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	$filteredName = filter_var($name, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	if(null == $filteredName) {
 		return null;
 	}
