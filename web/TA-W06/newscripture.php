@@ -19,12 +19,12 @@ $topics = selectAllTopics($db);
   <input name="chapter" type="text"><br>
   Verse:
   <input name="verse" type="text"><br>
-  <textarea name ="content" rows="6" cols="50"></textarea>
+  <textarea name ="content" rows="6" cols="50"></textarea><br>
     <?php
     foreach($topics as $t) {
     	$name = $t['name'];
     	$id = $t['id'];
-    	echo '<input type="checkbox" name="check_list[]" value="$id"><label>$name</label><br>';
+    	echo '<input type="checkbox" name="check_list[]" value="'.$id.'"><label>'.$name.'</label><br>';
     }
     ?>
   <input type="submit">
