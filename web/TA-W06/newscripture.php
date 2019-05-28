@@ -8,7 +8,7 @@
 <?php
 require('db.php');
 $db = getDb();
-$topics = getTopics($db);
+$topics = selectAllTopics($db);
 ?>
 <h2>Freelance services</h2>
 <br>
@@ -23,7 +23,8 @@ $topics = getTopics($db);
     <?php
     foreach($topics as $t) {
     	$name = $t['name'];
-    	echo '<input type="checkbox" name="$name" value="$name"><label for="$name"> $name </label><br>';
+    	$id = $t['id'];
+    	echo '<input type="checkbox" name="check_list[]" value="$id"><label>$name</label><br>';
     }
     ?>
   <input type="submit">

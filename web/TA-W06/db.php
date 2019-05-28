@@ -6,8 +6,8 @@ function selectAllScriptures($db) {
 	return $rows;
 }
 
-function selecTopics($db) {	
-	$stmt = $db->query('SELECT name FROM topics');
+function selectAllTopics($db) {	
+	$stmt = $db->query('SELECT id,name FROM topics');
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
