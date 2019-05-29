@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						}
 
 
-						   $allRows = selectAll($db);
+						    $allRows = selectAllScriptures($db);
 							foreach($allRows as $r) 
 							{
 								echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].$r['content'].'</b>';
