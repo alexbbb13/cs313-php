@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 								echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].$r['content'].'</b>';
 								$id = $r['id'];
 								$topics = selectTopics($db, $id);
-								foreach($allRows as $r) {
-									echo '<b> '.r['name'].'</b> ';
+
+								foreach($topics as $t) {
+									echo '<b> '.$t['name'].'</b> ';
 								}
 								//echo ' <span class="text_content">'.$r['content'].'</span>';
 								//echo '<a href="details.php?id='.$r['id'].'">Click here</a>';
