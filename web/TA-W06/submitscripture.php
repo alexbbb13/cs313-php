@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 								$id = $r['id'];
 								$topics = selectTopics($db, $id);
 								foreach($allRows as $r) {
-									echo ' '.r[''].;
+									echo '<b> '.r['name'].'</b> ';
 								}
 								//echo ' <span class="text_content">'.$r['content'].'</span>';
 								//echo '<a href="details.php?id='.$r['id'].'">Click here</a>';
