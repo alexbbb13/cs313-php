@@ -4,12 +4,17 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
            if (isset($_GET['book']) && isset($_GET['chapter']) && isset($_GET['verse']) && isset($_GET['content']))
 					{
+
 						$book = $_GET['book'];
 						$chapter = $_GET['chapter'];
 						$verse = $_GET['verse'];
 						$content = $_GET['content'];
+						$db = getDb();
+					    $lastRow  = insertScripture($db, $book. $chapter, $verse, $content);
+					    var_dump($lastRow);	
 						foreach($_GET['check_list'] as $selected){
 							//@TODO insert into database
+							insertScriptureTopic($db, $lastRow, $selected);
 							echo $selected."</br>";
 						}
 

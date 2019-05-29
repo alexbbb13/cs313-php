@@ -6,6 +6,23 @@ function selectAllScriptures($db) {
 	return $rows;
 }
 
+function insertScripture($db,$book, $chapter, $verse, $content) {
+
+	$stmt = $db->query('INSERT INTO scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)';
+	$stmt->execute(array(':book' => $book , ':chapter' => $chapter, ':verse' => $verse, ':content' => $content ));
+	//$sth->bindParam(':calories', $calories, PDO::PARAM_INT);
+    //$sth->bindValue(':colour', "%{$colour}%");
+    $stmt->execute();
+	return $stmt->lastInsertId();
+}
+
+function insertScriptureTopic($db, $lastRow, $selected) {
+	$stmt = $db->query('INSERT INTO scripturetopic (scripture_id, topic_id) VALUES (:lastRow, :selected)';
+	$stmt->bindParam(':lastRow', $lastRow, PDO::PARAM_INT);
+	$stmt->bindParam(':selected', $selected, PDO::PARAM_INT);
+	$stmt->execute();
+}
+
 function selectAllTopics($db) {	
 	$stmt = $db->query('SELECT id,name FROM topics');
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

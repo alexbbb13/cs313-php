@@ -10,7 +10,7 @@ require('db.php');
 $db = getDb();
 $topics = selectAllTopics($db);
 ?>
-<h2>Freelance services</h2>
+<h2>Insert Scripture</h2>
 <br>
 <form action="submitscripture.php" method="GET">
   Book:

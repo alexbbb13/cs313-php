@@ -22,15 +22,15 @@ INSERT INTO scriptures (book, chapter, verse, content) VALUES
 Week 06
 */
 
-create table topics (
-	id serial not null primary key,
-	name varchar(40) not null
-);
+		create table topics (
+			id serial not null primary key,
+			name varchar(40) not null
+		);
 
-create table scripturetopic (
-	id serial not null primary key,
-	scripture_id integer references scriptures(id),
-	topic_id integer references topics(id)
-);
+	create table scripturetopic (
+		id serial not null primary key,
+		scripture_id integer references scriptures(id),
+		topic_id integer references topics(id)
+	);
 
-INSERT INTO topics (name) VALUES ('Faith'), ('Sacrifice'), ('Charity');
+	INSERT INTO topics (name) VALUES ('Faith'), ('Sacrifice'), ('Charity');
