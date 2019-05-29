@@ -13,7 +13,8 @@ function insertScripture($db,$book, $chapter, $verse, $content) {
 	//$sth->bindParam(':calories', $calories, PDO::PARAM_INT);
     //$sth->bindValue(':colour', "%{$colour}%");
     $stmt->execute();
-	return $stmt->lastInsertId('scriptures_id_seq');
+    return $db->lastInsertId('scriptures_id_seq');
+	//return $stmt->lastInsertId('scriptures_id_seq');
 }
 
 function insertScriptureTopic($db, $lastRow, $selected) {
