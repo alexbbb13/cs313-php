@@ -11,12 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						$verse = $_GET['verse'];
 						$content = $_GET['content'];
 						$db = getDb();
-						var_dump($book);
-						var_dump($chapter);
-						var_dump($verse);
-						var_dump($content);	
-						die();
-					    $lastRow  = insertScripture($db, $book. $chapter, $verse, $content);
+						// var_dump($book);
+						// var_dump($chapter);
+						// var_dump($verse);
+						// var_dump($content);	
+						$lastRow  = insertScripture($db, $book, $chapter, $verse, $content);
 					    var_dump($lastRow);	
 						foreach($_GET['check_list'] as $selected){
 							//@TODO insert into database
