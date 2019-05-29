@@ -18,12 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 							$topic = $_GET['new_topic_name'];
 							$topicId = insertTopic($db, $topic);
 							insertScriptureTopic($db, $lastRow, $topicId);
-						} else if(isset($_GET['check_list']){
+						} elseif (isset($_GET['check_list']) {
 							foreach($_GET['check_list'] as $selected){
 							//@TODO insert into database
 							insertScriptureTopic($db, $lastRow, $selected);
 						}
-						displayAllScriptures($db);	    
+
 					} else {
 					    echo '<b>Error!</b>';
 					}
