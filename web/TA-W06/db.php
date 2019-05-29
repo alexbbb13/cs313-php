@@ -24,11 +24,7 @@ function insertScripture($db,$book, $chapter, $verse, $content) {
 
 	$stmt = $db->prepare('INSERT INTO scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
 	$stmt->execute(array(':book' => $book , ':chapter' => $chapter, ':verse' => $verse, ':content' => $content ));
-	//$sth->bindParam(':calories', $calories, PDO::PARAM_INT);
-    //$sth->bindValue(':colour', "%{$colour}%");
-    $stmt->execute();
-    return $db->lastInsertId('scriptures_id_seq');
-	//return $stmt->lastInsertId('scriptures_id_seq');
+	return $db->lastInsertId('scriptures_id_seq');
 }
 
 function insertScriptureTopic($db, $lastRow, $selected) {

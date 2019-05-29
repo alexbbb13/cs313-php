@@ -27,5 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					} else {
 					    echo '<b>Error!</b>';
 					}
+
     }
+$newPage = "newscripture.php";
+header("Location: $newPage");    
 ?>     
