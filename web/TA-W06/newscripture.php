@@ -7,6 +7,7 @@
 <body>
 <?php
 require('db.php');
+require('scripturelist.php');
 $db = getDb();
 $topics = selectAllTopics($db);
 ?>
