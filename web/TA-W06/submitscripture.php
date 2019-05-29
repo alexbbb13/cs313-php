@@ -30,5 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     }
 $newPage = "newscripture.php";
-header("Location: $newPage");    
+header("Location: $newPage");
+die();   
 ?>     
