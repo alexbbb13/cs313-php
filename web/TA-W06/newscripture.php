@@ -27,8 +27,13 @@ $topics = selectAllTopics($db);
     	echo '<input type="checkbox" name="check_list[]" value="'.$id.'"><label>'.$name.'</label><br>';
     }
     ?>
+     Create New Topic:
+  <input name="new_topic_name" type="text"><br>
+  <input type="checkbox" name="new_topic" value="new_topic"><br>'
   <input type="submit">
 </form>
-
+<?php
+  displayAllScriptures($db);
+  ?>	    
 </body>
 </html>

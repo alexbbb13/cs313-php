@@ -35,4 +35,4 @@ Week 06
 
 	INSERT INTO topics (name) VALUES ('Faith'), ('Sacrifice'), ('Charity');
 
-	SELECT book, chapter, verse, content FROM scriptures JOIN scripturetopic ON scriptures.id =scripturetopic.scripture_id; 
+	SELECT name FROM scripturetopic JOIN topics ON scripturetopic.topic_id =topics.id WHERE scripture_id=10; 

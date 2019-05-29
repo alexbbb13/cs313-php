@@ -11,40 +11,21 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						$verse = $_GET['verse'];
 						$content = $_GET['content'];
 						$db = getDb();
-						// var_dump($book);
-						// var_dump($chapter);
-						// var_dump($verse);
-						// var_dump($content);	
 						$lastRow  = insertScripture($db, $book, $chapter, $verse, $content);
-					    var_dump($lastRow);	
-						foreach($_GET['check_list'] as $selected){
+					    if (isset($_GET['new_topic_name']) && isset($_GET['new_topic']))
+						{
+							//New topic;
+							$topic = $_GET['new_topic_name'];
+							$topicId = insertTopic($db, $topic);
+							insertScriptureTopic($db, $lastRow, $topicId);
+						} else if(isset($_GET['check_list']){
+							foreach($_GET['check_list'] as $selected){
 							//@TODO insert into database
 							insertScriptureTopic($db, $lastRow, $selected);
-							echo $selected."</br>";
 						}
-
-
-						    $allRows = selectAllScriptures($db);
-							foreach($allRows as $r) 
-							{
-								echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].'<br>'.$r['content'].'</b>';
-								$id = $r['id'];
-								$topics = selectTopics($db, $id);
-
-								foreach($topics as $t) {
-									echo '<b> '.$t['name'].'</b> ';
-								}
-								//echo ' <span class="text_content">'.$r['content'].'</span>';
-								//echo '<a href="details.php?id='.$r['id'].'">Click here</a>';
-								//echo '<a href="details.html">Click here</a>';
-								echo '<br>';
-							}					    
+						displayAllScriptures($db);	    
 					} else {
 					    echo '<b>Error!</b>';
 					}
-				if(sizeof($allRows) > 0) {
-					printTable($allRows);
-				}
-
     }
 ?>     

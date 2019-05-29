@@ -13,6 +13,13 @@ function selectTopics($db, $id) {
 	return $rows;
 }
 
+function insertTopic($db,$topic) {
+	$stmt = $db->prepare('INSERT INTO topics (name) VALUES (:topic)');
+	$stmt->execute(array(':topic' => $topic));
+	$stmt->execute();
+	return $db->lastInsertId('topics_id_seq');
+}
+
 function insertScripture($db,$book, $chapter, $verse, $content) {
 
 	$stmt = $db->prepare('INSERT INTO scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
