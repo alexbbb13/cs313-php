@@ -23,7 +23,21 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 							echo $selected."</br>";
 						}
 
-						$allRows = selectFreelanceById($db, $filter);					    
+
+						   $allRows = selectAll($db);
+							foreach($allRows as $r) 
+							{
+								echo '<b>'.$r['book']." ".$r['chapter'].":".$r['verse'].$r['content'].'</b>';
+								$id = $r['id'];
+								$topics = selectTopics($db, $id);
+								foreach($allRows as $r) {
+									echo ' '.r[''].;
+								}
+								//echo ' <span class="text_content">'.$r['content'].'</span>';
+								//echo '<a href="details.php?id='.$r['id'].'">Click here</a>';
+								//echo '<a href="details.html">Click here</a>';
+								echo '<br>';
+							}					    
 					} else {
 					    echo '<b>Error!</b>';
 					}

@@ -6,6 +6,13 @@ function selectAllScriptures($db) {
 	return $rows;
 }
 
+function selectTopics($db, $id) {	
+	$stmt = $db->prepare('SELECT name FROM scripturetopic JOIN topics ON scripturetopic.topic_id =topics.id WHERE scripture_id=:id');
+	$stmt->execute(array(':id' => $id));
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
 function insertScripture($db,$book, $chapter, $verse, $content) {
 
 	$stmt = $db->prepare('INSERT INTO scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
@@ -22,6 +29,12 @@ function insertScriptureTopic($db, $lastRow, $selected) {
 	$stmt->bindParam(':lastRow', $lastRow, PDO::PARAM_INT);
 	$stmt->bindParam(':selected', $selected, PDO::PARAM_INT);
 	$stmt->execute();
+}
+
+function selectAllScripturesWithTopics($db) {	
+	$stmt = $db->query('SELECT * FROM scriptures JOIN scripturetopic USING(id)');
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
 }
 
 function selectAllTopics($db) {	
