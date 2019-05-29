@@ -3,8 +3,7 @@ require('db.php');
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
 
-           if (isset($_GET['book']) && isset($_GET['chapter']) && isset($_GET['verse']) && isset($_GET['content']))
-					{
+           if (isset($_GET['book']) && isset($_GET['chapter']) && isset($_GET['verse']) && isset($_GET['content'])){
 
 						$book = $_GET['book'];
 						$chapter = $_GET['chapter'];
@@ -12,8 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						$content = $_GET['content'];
 						$db = getDb();
 						$lastRow  = insertScripture($db, $book, $chapter, $verse, $content);
-					    if (isset($_GET['new_topic_name']) && isset($_GET['new_topic']))
-						{
+					    if (isset($_GET['new_topic_name']) && isset($_GET['new_topic'])) {
 							//New topic;
 							$topic = $_GET['new_topic_name'];
 							$topicId = insertTopic($db, $topic);
@@ -28,8 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					    echo '<b>Error!</b>';
 					}
 
-    }
+    
 $newPage = "newscripture.php";
 header("Location: $newPage");
-die();   
+die();
+}
+}   
 ?>     
