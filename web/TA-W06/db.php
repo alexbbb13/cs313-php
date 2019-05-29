@@ -8,7 +8,7 @@ function selectAllScriptures($db) {
 
 function insertScripture($db,$book, $chapter, $verse, $content) {
 
-	$stmt = $db->query('INSERT INTO scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)';
+	$stmt = $db->query('INSERT INTO scriptures (book, chapter, verse, content) VALUES (:book, :chapter, :verse, :content)');
 	$stmt->execute(array(':book' => $book , ':chapter' => $chapter, ':verse' => $verse, ':content' => $content ));
 	//$sth->bindParam(':calories', $calories, PDO::PARAM_INT);
     //$sth->bindValue(':colour', "%{$colour}%");
