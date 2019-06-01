@@ -49,9 +49,9 @@ function printTable($allRows, $editable, $jobId) {
 					setlocale(LC_MONETARY, 'en_US');
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
 					if ($editable) { 
-						echo '<td><a href="apply.php?freelance_id='.$r['id'].'&job_id='.$jobId.'">Select to apply</a></td>';
+						echo '<td><a href="applyedit.php?freelance_id='.$r['id'].'&job_id='.$jobId.'">Select to apply</a></td>';
 					} else {
-						echo '<td><a href="apply.php?freelance_id='.$r['id'].'&job_id='.$jobId.'">Select to apply</a></td>';
+						echo '<td><a href="applyedit.php?freelance_id='.$r['id'].'&job_id='.$jobId.'">Select to apply</a></td>';
 					}
 					echo '</tr>';
 				}

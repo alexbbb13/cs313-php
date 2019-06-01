@@ -198,6 +198,46 @@ function selectJobsAll($db) {
 }
 
 /*
+		Applications
+		create table applications
+(
+	id serial not null primary key,
+	job_id integer references jobs(id),
+	user_id integer references users(id),
+	freelance_service_id integer references freelance_services(id),
+	rate_in_cents integer not null,
+	projected_hours integer,
+	cover_letter varchar(2000),
+	accepted boolean not null,
+	created_at timestamp not null	
+);
+
+*/
+
+function selectApplications($db, $jobId, $freelanceId, $userId) {
+	$stmt = $db->prepare('SELECT * FROM applications WHERE job_id=:jobId AND user_id=:userId AND freelance_service_id=:freelanceId');
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function insertApplication($db, $jobId, $freelanceId, $userId, $description, $hours,  $rate) {
+	$stmt = $db->prepare('INSERT INTO applications (job_id, user_id, , freelance_service_id, rate_in_cents, projected_hours, cover_letter,  accepted, created_at) VALUES (:jobId, :userId, :freelanceId, :description, :hours, :rate, false, CURRENT_TIMESTAMP)');
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
+	$stmt->bindParam(':hours', $hours, PDO::PARAM_INT);
+	$stmt->bindParam(':rate', $rate, PDO::PARAM_INT);
+    $stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+/*
  *	Db
  *
  */
