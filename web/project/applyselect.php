@@ -13,6 +13,7 @@ session_start();
 </head>
 <body>
 <?php
+require 'db.php';
 require 'navbar.php';
 
 showTitle();
