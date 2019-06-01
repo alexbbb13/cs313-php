@@ -34,7 +34,7 @@ function printForEdit($freelanceId, $title, $subtitle, $description, $rate_in_ce
             <button name="delete" type="submit" value="true">Delete</button><br><br>
             <input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">';
         }
-        
+
         echo 'Title:
         <input name="title" type="text" value="'.$title.'" size="80"><br>
         Subtitle:
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					{
 					   $id = htmlspecialchars($_GET['id']);
                        $user = getSessionUser();
-						$allRows = selectFreelanceById($db, $id, $user);
+						$allRows = selectFreelanceByIdUser($db, $id, $user);
 						if(sizeof($allRows) > 0) {
 					      $r = $allRows[0];
 					      $money  = $r['rate_in_cents']/100;
