@@ -225,7 +225,25 @@ function selectApplications($db, $jobId, $freelanceId, $userId) {
 }
 
 function insertApplication($db, $jobId, $freelanceId, $userId, $description, $hours,  $rate) {
-	$stmt = $db->prepare('INSERT INTO applications (job_id, user_id, freelance_service_id, rate_in_cents, projected_hours, cover_letter,  accepted, created_at) VALUES (:jobId, :userId, :freelanceId, :description, :hours, :rate, false, CURRENT_TIMESTAMP)');
+	$stmt = $db->prepare('
+		INSERT INTO applications 
+		(job_id, 
+		user_id, 
+		freelance_service_id, 
+		rate_in_cents, 
+		projected_hours, 
+		cover_letter,  
+		accepted, 
+		created_at) VALUES (
+		:jobId, 
+		:userId, 
+		:freelanceId,
+		:rate,
+		:hours, 
+		:description,
+		false, 
+		CURRENT_TIMESTAMP)');
+	
 	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
 	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
 	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
