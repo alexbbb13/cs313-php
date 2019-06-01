@@ -107,6 +107,42 @@ function selectFreelanceAllUser($db, $user) {
 }
 
 /*
+id serial not null primary key,
+	user_id integer references users(id),
+	title varchar(80) not null,
+	subtitle varchar(80),
+	description varchar(6000),
+	rate_in_cents integer not null,
+	active boolean not null,
+	created_at timestamp not null	
+*/
+function insertFreelanceService($db, $user, $title, $subtitle, $description, $rate_in_cents){
+	$stmt = $db->prepare('INSERT INTO freelance_services (user_id, title, subtitle, description, rate_in_cents, active, created_at) VALUES (:user_id, :title, :subtitle, :description, :rate_in_cents, :active, CURRENT_TIMESTAMP)');
+	$active = true;
+	$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':subtitle', $subtitle, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
+	$stmt->bindParam(':rate_in_cents', $rate_in_cents, PDO::PARAM_INT);
+	$stmt->bindParam(':active', $active, PDO::PARAM_INT);
+	$stmt->execute();
+	return $db->lastInsertId('freelance_services_id_seq');
+}
+
+function updateFreelanceService($db, $user, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents){
+	$stmt = $db->prepare('UPDATE freelance_services SET user_id=:user_id, title:title, subtitle:subtitle, description:description, rate_in_cents:rate_in_cents, active:active WHERE id=:freelanceServiceId');
+	$active = true;
+	$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':subtitle', $subtitle, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
+	$stmt->bindParam(':rate_in_cents', $rate_in_cents, PDO::PARAM_INT);
+	$stmt->bindParam(':active', $active, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);
+	$stmt->execute();
+}
+
+/*
  *	Jobs
  *
  */

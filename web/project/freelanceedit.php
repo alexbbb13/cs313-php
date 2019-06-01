@@ -21,17 +21,15 @@ require 'navbar.php';
 require 'db.php';
 //Local or Heroku
 
-/*
-title varchar(80) not null,
-	subtitle varchar(80),
-	description varchar(6000),
-	rate_in_cents integer not null,
-*/
- function printFreelanceForEdit($title, $subtitle, $description, $rate_in_cents) {
+function printFreelanceForEdit($freelanceId, $title, $subtitle, $description, $rate_in_cents) {
+        //if id is null -> create new for this user, if id is not null - edit
         echo '<h2>Create/edit freelance service:</h2>
         <br>
-        <form action="freelancesubmit.php" method="POST">
-        Title:
+        <form action="freelancesubmit.php" method="POST">'
+        if($freelanceId != null) {
+            echo '<input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">'
+        }
+        echo 'Title:
         <input name="title" type="text" value="'.$title.'" size="80"><br>
         Subtitle:
         <input name="subtitle" type="text" value="'.$subtitle.'" size="80">
@@ -51,17 +49,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
            if (isset($_GET['id'])) //freelance service id
 					{
-					   $filter = $_GET['id'];
+					   $id = $_GET['id'];
                        $user = getSessionUser();
-						$allRows = selectFreelanceById($db, $filter, $user);
+						$allRows = selectFreelanceById($db, $id, $user);
 						if(sizeof($allRows) > 0) {
 					      $r = $allRows[0];
 					      $money  = $r['rate_in_cents']/100;
 					      setlocale(LC_MONETARY, 'en_US');
-					      printFreelanceForEdit($r['title'],$r['subtitle'],$r['description'],$money);
+					      printFreelanceForEdit($id, $r['title'],$r['subtitle'],$r['description'],$money);
 				      }							    
 					} else {
-					    echo '<b>Error!</b>';
+                        // id is not supplied, or a service with such and id not found for the user
+					    echo '<h2>Creating new freelance service</h2><br>';
+                        printFreelanceForEdit(null, '','','',0);
 					}
 				
 
