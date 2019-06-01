@@ -15,13 +15,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 						$title = $_POST['title'];
 						$subtitle = $_POST['subtitle'];
 						$rate_in_cents = (int)($_POST['rate_in_dollars']*100);
-						if (isset($_POST['description']) {
+						if (isset($_POST['description'])) {
 							$description = $_POST['description'];
 						} else {
 							$description = "";
 						}
 						$db = getDb();
-						if (isset($_POST['id']) {
+						if (isset($_POST['id'])) {
 							$freelanceServiceId = $_POST['id'];
 							updateFreelanceService($db, $user, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents);
 						} else {
