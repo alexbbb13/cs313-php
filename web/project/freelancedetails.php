@@ -46,10 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
            if (isset($_GET['id']))
 					{
 					    $filter = $_GET['id'];
-					    var_dump($filter);
-					    var_dump($db);
 						$allRows = selectFreelanceById($db, $filter);	
-						var_dump($allRows);				    
 					} else {
 					    echo '<b>Error!</b>';
 					}
