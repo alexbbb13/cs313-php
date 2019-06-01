@@ -3,13 +3,12 @@ require('db.php');
 require('session.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // retrieve the form data by using the element's name attributes value as key
-		   if(getSessionUser()==null) {
+	       $user = getSessionUser()
+	       var_dump($user);
+		   if($user==null) {
 		   	  echo 'Login data required';
 		   	  die();
-		   } else {
-		   	  $user = getSessionUser();
-		   }	
-
+		   } 
            if (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['rate_in_dollars'])){
 
 						$title = $_POST['title'];
