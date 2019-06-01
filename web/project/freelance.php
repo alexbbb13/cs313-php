@@ -66,14 +66,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						} else {
 							$allRows = selectFreelanceByName($db, $filter);					    
 						} 
-					} else {
+				} else {
 						if ($my) {
 							$$allRows = selectFreelanceAllUser($db, getSessionUser());
 						} else {
-							$allRows = selectFreelanceByName($db, $filter);					    
+							$allRows = selectFreelanceAll($db);					    
 						}
 					    
-					}
+				}
 				if(sizeof($allRows) > 0) {
 					printTable($allRows, $my === true);
 				}
