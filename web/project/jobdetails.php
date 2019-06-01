@@ -27,7 +27,7 @@ function printRow($name, $value){
 	echo ' </tr>';
 }
 
-function printTable($r, $id) {
+function printTable($r, $id, $user) {
 	echo'<h2>Job Details:</h2><br>
 	<table class="fancy">';
 	printRow('Created by', $r['username']);
@@ -37,7 +37,9 @@ function printTable($r, $id) {
 	setlocale(LC_MONETARY, 'en_US');
 	printRow('Rate', money_format('%(#10n', $money));
 	printRow('Projected Hours', $r['projected_hours']);
-	printRow('Action', '<a href="apply.php?id='.$r['id'].'">Click to apply</a></td>');
+	if ($user != null) {
+		printRow('Action', '<a href="applyselect.php?job_id='.$r['id'].'">Click to apply</a></td>');
+	}
 	echo '</table>';			
 }
 
@@ -52,7 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					    echo '<b>Error!</b>';
 					}
 				if(sizeof($allRows) > 0) {
-					printTable($allRows[0], $filter);
+					$user = getSessionUser();
+					printTable($allRows[0], $filter, $user);
 				}
 
     } else {
