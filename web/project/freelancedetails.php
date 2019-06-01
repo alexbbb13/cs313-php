@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					    echo '<b>Error!</b>';
 					}
 				if(sizeof($allRows) > 0) {
-					printTable($allRows[0]);
+					printTable($allRows[0], $filter);
 				}
 
     } else {
