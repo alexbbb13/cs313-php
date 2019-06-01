@@ -79,7 +79,7 @@ function selectFreelanceByNameUser($db, $name, $user) {
 }
 
 
-function selectFreelanceById($db, $id, $user) {
+function selectFreelanceByIdUser($db, $id, $user) {
 	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	if(null == $filteredId) {
 		return null;
@@ -87,6 +87,18 @@ function selectFreelanceById($db, $id, $user) {
 	$stmt = $db->prepare('SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user');
 	$stmt->bindParam(':id', $filteredId, PDO::PARAM_INT);
 	$stmt->bindParam(':user', $user, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectFreelanceById($db, $id) {
+	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredId) {
+		return null;
+	}
+	$stmt = $db->prepare('SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id');
+	$stmt->bindParam(':id', $filteredId, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
