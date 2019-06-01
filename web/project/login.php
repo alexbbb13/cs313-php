@@ -52,6 +52,9 @@ require 'navbar.php';
                     {
                         setSessionUser($r['id']);
                         printUser($r['username']);
+                        $newPage = "freelance.php?my=true";
+                        header("Location: $newPage");
+                        die();    
                     }    
         } else {
             // multiple users, 

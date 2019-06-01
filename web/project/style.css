@@ -34,6 +34,10 @@ li {
   float: left;
 }
 
+.username li {
+  float: right;
+}
+
 li a {
   display: block;
   color: #666;
