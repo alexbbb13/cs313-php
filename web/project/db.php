@@ -149,7 +149,7 @@ function selectJobsAll($db) {
 
 function getDb()
 {
-	return getLocalDb();
+	return getHerokuDb();
 }
 
 function getHerokuDb() {
