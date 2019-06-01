@@ -30,9 +30,9 @@ require 'db.php';
 //Local or Heroku
 function showAddNewButton() {
 	echo 
-	'<form action="freelanceedit.php" method="GET">
-	<submit>Add New</submit>
-	</form>';
+    '<br><form action="freelanceedit.php" method="GET">
+	<input type="submit" value="Create new" >
+	</form><br>';
 }
 
 function printTable($allRows, $editable) {
