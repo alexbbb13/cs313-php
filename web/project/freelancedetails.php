@@ -22,7 +22,7 @@ require 'db.php';
 //Local or Heroku
 function printRow($name, $value){
 	echo '<tr>';
-	echo '<th>'.$name'</th>';
+	echo '<th>'.$name.'</th>';
 	echo '<td>'.$value.'</td>';
 	echo ' </tr>';
 }
