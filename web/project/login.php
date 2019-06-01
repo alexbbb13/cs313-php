@@ -50,7 +50,7 @@ require 'navbar.php';
                 // user is found, storing the user Id into session
                 foreach($users as $r) 
                     {
-                        setSessionUser($r['id']);
+                        setSessionUser($r['id'], $r['username']);
                         printUser($r['username']);
                         $newPage = "freelance.php?my=true";
                         header("Location: $newPage");

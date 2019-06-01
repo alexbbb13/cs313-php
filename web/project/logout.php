@@ -17,7 +17,7 @@ require 'navbar.php';
 ?>  
 <br>
 <?php
-    setSessionUser(null);
+    setSessionUser(null,null);
     $newPage = "login.php";
     header("Location: $newPage");
 die();
