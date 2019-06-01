@@ -25,9 +25,9 @@ function printFreelanceForEdit($freelanceId, $title, $subtitle, $description, $r
         //if id is null -> create new for this user, if id is not null - edit
         echo '<h2>Create/edit freelance service:</h2>
         <br>
-        <form action="freelancesubmit.php" method="POST">'
+        <form action="freelancesubmit.php" method="POST">';
         if($freelanceId != null) {
-            echo '<input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">'
+            echo '<input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">';
         }
         echo 'Title:
         <input name="title" type="text" value="'.$title.'" size="80"><br>

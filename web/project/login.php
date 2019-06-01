@@ -42,23 +42,25 @@ require 'navbar.php';
         $password = $_POST['password'];
         $db = getDb();
         $users = selectByLoginPassword($db, $login, $password);//listAll($db); //
-    }
-    $countUsers =count($users); 
-    if($countUsers == 0) {
-            //User not found
-            printNoUser();
-    } else if ($countUsers == 1) {
-            // user is found, storing the user Id into session
-            foreach($users as $r) 
-                {
-                    setSessionUser($r['id']);
-                    printUser($r['username']);
-                }    
+        $countUsers =count($users); 
+        if($countUsers == 0) {
+                //User not found
+                printNoUser();
+        } else if ($countUsers == 1) {
+                // user is found, storing the user Id into session
+                foreach($users as $r) 
+                    {
+                        setSessionUser($r['id']);
+                        printUser($r['username']);
+                    }    
+        } else {
+            // multiple users, 
+            echo '<h2>Error</h2>';
+        }
     } else {
-        // multiple users, 
-        echo '<h2>Error</h2>';
+        //Get or no login/ password info
+        printNoUser();
     }
-        
 ?>
 </body>
 </html>
