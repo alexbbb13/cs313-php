@@ -11,8 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		   	  die();
 		   } 
 		   //
-		   if (isset($_POST['delete']) && $_POST['delete']=='true') {
+		   if (isset($_POST['delete']) && $_POST['delete']=='true' && isset($_POST['freelance_id']) {
 		   	// a request to delete the freelance service
+		   	        $db = getDb();
+		   			$freelanceServiceId = $_POST['freelance_id'];
 		   			deleteFreelanceService($db, $user, $freelanceServiceId);
 		   } elseif (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['rate_in_dollars'])){
 
