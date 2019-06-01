@@ -28,15 +28,16 @@ require 'navbar.php';
 <?php
 require 'db.php';
 //Local or Heroku
+echo'<h2>Freelance services:</h2><br>';
+
 function showAddNewButton() {
 	echo 
     '<br><form action="freelanceedit.php" method="GET">
-	<input type="submit" value="Create new" >
+	<input type="submit" value="Create New Freelance Service" >
 	</form><br>';
 }
 
 function printTable($allRows, $editable) {
-	echo'<h2>Freelance services:</h2><br>';
 	echo '<table class="fancy">';
 	echo '<tr>';
 	echo '<th>Title</th>';
