@@ -68,7 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 						} 
 				} else {
 						if ($my) {
-							var_dump(getSessionUser());
 							$$allRows = selectFreelanceAllUser($db, getSessionUser());
 						} else {
 							$allRows = selectFreelanceAll($db);					    

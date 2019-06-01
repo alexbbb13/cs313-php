@@ -98,8 +98,7 @@ function selectFreelanceAll($db) {
 }
 
 function selectFreelanceAllUser($db, $user) {
-	var_dump($user);
-	$stmt = $db->query('SELECT * FROM freelance_services WHERE user_id=:user');
+	$stmt = $db->prepare('SELECT * FROM freelance_services WHERE user_id=:user');
 	$stmt->bindParam(':user', $user, PDO::PARAM_STR, 40);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
