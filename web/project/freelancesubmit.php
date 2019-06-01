@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		   //
 		   if (isset($_POST['delete']) && $_POST['delete']=='true') {
 		   	// a request to delete the freelance service
-		   			deleteFreelanceService($db, $user, $freelanceServiceId)
+		   			deleteFreelanceService($db, $user, $freelanceServiceId);
 		   } elseif (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['rate_in_dollars'])){
 
 						$title = $_POST['title'];
