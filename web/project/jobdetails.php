@@ -19,30 +19,25 @@ require 'navbar.php';
 <?php
 require 'db.php';
 //Local or Heroku
-function printTable($allRows) {
-	echo'<h2>Job Details:</h2><br>';
-	echo '<table class="fancy">';
+
+function printRow($name, $value){
 	echo '<tr>';
-	echo '<th>Created by</th>';
-    echo '<th>Title</th>';
-    echo '<th>Job description</th>';
-    echo '<th>Rate</th>';
-    echo '<th>Hours</th>';
-    echo '<th>Action</th>';
-    echo ' </tr>';
-	foreach($allRows as $r) 
-				{
-					echo '<tr>';
-					echo '<td>'.$r['username'].'</td>';
-					echo '<td>'.$r['title'].'</td>';
-					echo '<td>'.$r['description'].'</td>';
-					$money  = $r['rate_in_cents']/100;
-					setlocale(LC_MONETARY, 'en_US');
-                    echo '<td>'.money_format('%(#10n', $money).'</td>';
-					echo '<td>'.$r['projected_hours'].'</td>';
-					echo '<td><a href="apply.php?id='.$r['id'].'">Apply</a></td>';
-					echo '</tr>';
-				}
+	echo '<th>'.$name.'</th>';
+	echo '<td>'.$value.'</td>';
+	echo ' </tr>';
+}
+
+function printTable($r, $id) {
+	echo'<h2>Job Details:</h2><br>
+	<table class="fancy">';
+	printRow('Created by', $r['username']);
+	printRow('Title', $r['title']);
+	printRow('Job description', $r['description']);
+	$money  = $r['rate_in_cents']/100;
+	setlocale(LC_MONETARY, 'en_US');
+	printRow('Rate', money_format('%(#10n', $money));
+	printRow('Projected Hours', $r['projected_hours']);
+	printRow('Action', '<a href="apply.php?id='.$r['id'].'">Click to apply</a></td>');
 	echo '</table>';			
 }
 
@@ -57,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					    echo '<b>Error!</b>';
 					}
 				if(sizeof($allRows) > 0) {
-					printTable($allRows);
+					printTable($allRows[0], $filter);
 				}
 
     } else {
