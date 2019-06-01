@@ -52,7 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
            if (isset($_GET['id'])) //freelance service id
 					{
 					   $filter = $_GET['id'];
-						$allRows = selectFreelanceById($db, $filter);
+                       $user = getSessionUser();
+						$allRows = selectFreelanceById($db, $filter, $user);
 						if(sizeof($allRows) > 0) {
 					      $r = $allRows[0];
 					      $money  = $r['rate_in_cents']/100;
