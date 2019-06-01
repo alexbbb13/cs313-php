@@ -21,8 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							$description = "";
 						}
 						$db = getDb();
-						if (isset($_POST['id'])) {
-							$freelanceServiceId = $_POST['id'];
+						if (isset($_POST['freelance_id'])) {
+							$freelanceServiceId = $_POST['freelance_id'];
+							//var_dump($freelanceServiceId)
 							updateFreelanceService($db, $user, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents);
 						} else {
 							//id is not set, insering new freelance service
