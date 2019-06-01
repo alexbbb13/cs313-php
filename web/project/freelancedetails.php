@@ -28,7 +28,8 @@ function printRow($name, $value){
 }
 
 function printTable($r, $id) {
-	echo'<h2>Freelance service:</h2><br>';
+	echo'<h2>Freelance service:</h2><br>
+	<table class="fancy">';
 	printRow('Name', $r['username']);
 	printRow('Title', $r['title']);
 	printRow('Description', $r['subtitle']);
