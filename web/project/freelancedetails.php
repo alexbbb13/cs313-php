@@ -20,30 +20,22 @@ require 'navbar.php';
 <?php
 require 'db.php';
 //Local or Heroku
-function printTable($allRows, $id) {
+function printRow($name, $value){
+	echo '<tr>';
+	echo '<th>'.$name'</th>';
+	echo '<td>'.$value.'</td>';
+	echo ' </tr>';
+}
+
+function printTable($r, $id) {
 	echo'<h2>Freelance service:</h2><br>';
-	echo '<table class="fancy">';
-	 echo '<tr>';
-	 echo '<th>Name</th>';
-    echo '<th>Title</th>';
-    echo '<th>Short description</th>';
-    echo '<th>Long description</th>';
-    echo '<th>Rate</th>';
-    echo '<th>Action</th>';
-    echo ' </tr>';
-	foreach($allRows as $r) 
-				{
-					echo '<tr>';
-					echo '<td>'.$r['username'].'</td>';
-					echo '<td>'.$r['title'].'</td>';
-					echo '<td>'.$r['subtitle'].'</td>';
-					echo '<td>'.$r['description'].'</td>';
-					$money  = $r['rate_in_cents']/100;
-					setlocale(LC_MONETARY, 'en_US');
-                    echo '<td>'.money_format('%(#10n', $money).'</td>';
-               echo '<td><a href="freelanceedit.php?id='.$r['id'].'"></td>';     
-					echo '</tr>';
-				}
+	printRow('Name', $r['username']);
+	printRow('Title', $r['title']);
+	printRow('Description', $r['subtitle']);
+	printRow('Long description', $r['description']);
+	$money  = $r['rate_in_cents']/100;
+	setlocale(LC_MONETARY, 'en_US');
+	printRow('Rate', money_format('%(#10n', $money));
 	echo '</table>';			
 }
 
@@ -58,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					    echo '<b>Error!</b>';
 					}
 				if(sizeof($allRows) > 0) {
-					printTable($allRows);
+					printTable($allRows[0]);
 				}
 
     } else {

@@ -16,19 +16,28 @@ session_start();
 require 'navbar.php';
 ?>	
 
-<h2>Freelance services</h2>
+<br>
 <br>
 <form action="./freelance.php" method="GET">
   Filter:
   <input name="filter" type="text">
+  <input type="submit" value="Filter">
   <br><br>
-  <input type="submit">
 </form>
 
 <?php
 require 'db.php';
 //Local or Heroku
-echo'<h2>Freelance services:</h2><br>';
+showTitle();
+
+function showTitle() {
+	$my = $_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['my'] && $_GET['my']== true && getSessionUser()!=null;
+		if ($my) {
+			echo'<h2>My Freelance Services:</h2><br>';			
+		} else {
+			echo'<h2>Freelance Services:</h2><br>';
+		}
+}
 
 function showAddNewButton() {
 	echo 
@@ -45,6 +54,8 @@ function printTable($allRows, $editable) {
     echo '<th>Rate</th>';
     if ($editable) { 
     	echo '<th>Action</th>'; 
+    } else {
+    	echo '<th>More</th>';
     }
     echo ' </tr>';
 	foreach($allRows as $r) 
@@ -57,6 +68,8 @@ function printTable($allRows, $editable) {
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
 					if ($editable) { 
 						echo '<td><a href="freelanceedit.php?id='.$r['id'].'">Edit</a></td>';
+					} else {
+						echo '<td><a href="freelancedetails.php?id='.$r['id'].'">More</a></td>';
 					}
 					echo '</tr>';
 				}

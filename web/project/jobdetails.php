@@ -18,7 +18,6 @@ require 'navbar.php';
 <br>
 <?php
 require 'db.php';
-require 'session.php';
 //Local or Heroku
 function printTable($allRows) {
 	echo'<h2>Job Details:</h2><br>';
