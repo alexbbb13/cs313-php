@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		   	  die();
 		   } 
 		   //
-		   if (isset($_POST['delete']) && $_POST['delete']=='true' && isset($_POST['freelance_id']) {
+		   if (isset($_POST['delete']) && $_POST['delete']=='true' && isset($_POST['freelance_id'])) {
 		   	// a request to delete the freelance service
 		   	        $db = getDb();
 		   			$freelanceServiceId = $_POST['freelance_id'];
