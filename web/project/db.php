@@ -130,7 +130,7 @@ function insertFreelanceService($db, $userId, $title, $subtitle, $description, $
 }
 
 function updateFreelanceService($db, $userId, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents){
-	$stmt = $db->prepare('UPDATE freelance_services SET user_id=:user_id, title:title, subtitle:subtitle, description:description, rate_in_cents:rate_in_cents, active:active WHERE id=:freelanceServiceId');
+	$stmt = $db->prepare('UPDATE freelance_services SET user_id=:user_id, title=:title, subtitle=:subtitle, description=:description, rate_in_cents=:rate_in_cents, active=:active WHERE id=:freelanceServiceId');
 	$active = true;
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);
