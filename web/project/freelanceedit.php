@@ -35,7 +35,7 @@ function printFreelanceForEdit($freelanceId, $title, $subtitle, $description, $r
         <input name="subtitle" type="text" value="'.$subtitle.'" size="80">
         <br>
         Description:
-        <textarea name="description" value="'.$description.'" rows="20" cols="80"></textarea>
+        <textarea name="description" value="'.$description.'" rows="20" cols="80">'.$description.'</textarea>
         <br>
         Rate per hour: $
         <input name="rate_in_dollars" type="number" value="'.$rate_in_cents.'" min="0.00" max="1000.00" step="0.01">
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
            if (isset($_GET['id'])) //freelance service id
 					{
-					   $id = $_GET['id'];
+					   $id = htmlspecialchars($_GET['id']);
                        $user = getSessionUser();
 						$allRows = selectFreelanceById($db, $id, $user);
 						if(sizeof($allRows) > 0) {
