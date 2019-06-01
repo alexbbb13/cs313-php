@@ -38,5 +38,4 @@ $newPage = "freelance.php?my=true";
 header("Location: $newPage");
 die();
 }
-}   
 ?> 
