@@ -3,7 +3,7 @@ require('db.php');
 require('session.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // retrieve the form data by using the element's name attributes value as key
-	       $user = getSessionUser()
+	       $user = getSessionUser();
 	       var_dump($user);
 		   if($user==null) {
 		   	  echo 'Login data required';
