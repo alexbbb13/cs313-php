@@ -129,8 +129,15 @@ function insertFreelanceService($db, $userId, $title, $subtitle, $description, $
 	return $db->lastInsertId('freelance_services_id_seq');
 }
 
+function deleteFreelanceService($db, $userId, $freelanceServiceId){
+	$stmt = $db->prepare('DELETE FROM freelance_services WHERE id=:freelanceServiceId  AND user_id=:user_id');
+	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);
+	$stmt->execute();
+}
+
 function updateFreelanceService($db, $userId, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents){
-	$stmt = $db->prepare('UPDATE freelance_services SET user_id=:user_id, title=:title, subtitle=:subtitle, description=:description, rate_in_cents=:rate_in_cents, active=:active WHERE id=:freelanceServiceId');
+	$stmt = $db->prepare('UPDATE freelance_services SET title=:title, subtitle=:subtitle, description=:description, rate_in_cents=:rate_in_cents, active=:active WHERE id=:freelanceServiceId AND user_id=:user_id');
 	$active = true;
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);

@@ -21,11 +21,13 @@ require 'navbar.php';
 require 'db.php';
 //Local or Heroku
 
-function printFreelanceForEdit($freelanceId, $title, $subtitle, $description, $rate_in_cents) {
+function printForEdit($freelanceId, $title, $subtitle, $description, $rate_in_cents) {
         //if id is null -> create new for this user, if id is not null - edit
         echo '<h2>Create/edit freelance service:</h2>
         <br>
-        <form action="freelancesubmit.php" method="POST">';
+        <form action="freelancesubmit.php" method="POST">
+        <br>
+        <button name="delete" type="submit" value="true">Delete</button>';
         if($freelanceId != null) {
             echo '<input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">';
         }
@@ -40,7 +42,7 @@ function printFreelanceForEdit($freelanceId, $title, $subtitle, $description, $r
         Rate per hour: $
         <input name="rate_in_dollars" type="number" value="'.$rate_in_cents.'" min="0.00" max="1000.00" step="0.01">
         <br>
-        <input type="submit">
+        <input type="submit" value="Save and exit" >
         </form>';
     }
 
@@ -56,12 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					      $r = $allRows[0];
 					      $money  = $r['rate_in_cents']/100;
 					      setlocale(LC_MONETARY, 'en_US');
-					      printFreelanceForEdit($id, $r['title'],$r['subtitle'],$r['description'],$money);
+					      printForEdit($id, $r['title'],$r['subtitle'],$r['description'],$money);
 				      }							    
 					} else {
                         // id is not supplied, or a service with such and id not found for the user
 					    echo '<h2>Creating new freelance service</h2><br>';
-                        printFreelanceForEdit(null, '','','',0);
+                        printForEdit(null, '','','',0);
 					}
 				
 

@@ -10,7 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		   	  echo 'Login data required';
 		   	  die();
 		   } 
-           if (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['rate_in_dollars'])){
+		   //
+		   if (isset($_POST['delete']) && $_POST['delete']=='true') {
+		   	// a request to delete the freelance service
+		   			deleteFreelanceService($db, $user, $freelanceServiceId)
+		   } elseif (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['rate_in_dollars'])){
 
 						$title = $_POST['title'];
 						$subtitle = $_POST['subtitle'];
@@ -30,9 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 							$freelanceServiceId  = insertFreelanceService($db, $user, $title, $subtitle, $description, $rate_in_cents);
 						}
 						
-					} else {
-					    echo '<b>Error! Title, subtitle and rate are required</b>';
-					}
+			} else {
+						echo '<b>Error! Title, subtitle and rate are required</b>';
+			}
 
     
 $newPage = "freelance.php?my=true";
