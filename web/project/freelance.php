@@ -31,7 +31,7 @@ require 'db.php';
 showTitle();
 
 function showTitle() {
-	$my = $_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['my'] && $_GET['my']== true && getSessionUser()!=null;
+	$my = ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['my']) && $_GET['my']== true && getSessionUser()!=null);
 		if ($my) {
 			echo'<h2>My Freelance Services:</h2><br>';			
 		} else {
