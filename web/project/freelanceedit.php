@@ -27,7 +27,7 @@ function printForEdit($freelanceId, $title, $subtitle, $description, $rate_in_ce
         <br>
         <form action="freelancesubmit.php" method="POST">
         <br>
-        <button name="delete" type="submit" value="true">Delete</button>';
+        <button name="delete" type="submit" value="true">Delete</button><br><br>';
         if($freelanceId != null) {
             echo '<input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">';
         }
