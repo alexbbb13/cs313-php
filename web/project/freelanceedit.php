@@ -37,9 +37,11 @@ title varchar(80) not null,
         <input name="subtitle" type="text" value="'.$subtitle.'" size="80">
         <br>
         Description:
-        <textarea name="description" value="'.$description.'" rows="50" cols="80"></textarea> 
+        <textarea name="description" value="'.$description.'" rows="20" cols="80"></textarea>
+        <br>
         Rate per hour: $
         <input name="rate_in_dollars" type="number" value="'.$rate_in_cents.'" min="0.00" max="1000.00" step="0.01">
+        <br>
         <input type="submit">
         </form>';
     }
