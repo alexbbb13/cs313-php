@@ -28,6 +28,13 @@ require 'navbar.php';
 <?php
 require 'db.php';
 //Local or Heroku
+function showAddNewButton() {
+	echo 
+	'<form action="freelanceedit.php" method="GET">
+	<submit>Add New</submit>
+	</form>';
+}
+
 function printTable($allRows, $editable) {
 	echo'<h2>Freelance services:</h2><br>';
 	echo '<table class="fancy">';
@@ -62,12 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
            		{
 					    $filter = $_GET['filter'];
 						if ($my) {
+							showAddNewButton();
 							$allRows = selectFreelanceByNameUser($db, $filter, getSessionUser());
 						} else {
 							$allRows = selectFreelanceByName($db, $filter);					    
 						} 
 				} else {
 						if ($my) {
+							showAddNewButton();
 							$allRows = selectFreelanceAllUser($db, getSessionUser());
 						} else {
 							$allRows = selectFreelanceAll($db);					    

@@ -26,11 +26,15 @@ function printForEdit($freelanceId, $title, $subtitle, $description, $rate_in_ce
         echo '<h2>Create/edit freelance service:</h2>
         <br>
         <form action="freelancesubmit.php" method="POST">
-        <br>
-        <button name="delete" type="submit" value="true">Delete</button><br><br>';
+        <br>';
+
         if($freelanceId != null) {
-            echo '<input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">';
+            //This freelance service exists, so we can delete it
+            echo '
+            <button name="delete" type="submit" value="true">Delete</button><br><br>
+            <input type="hidden" type="number" name="freelance_id" value="'.$freelanceId.'">';
         }
+        
         echo 'Title:
         <input name="title" type="text" value="'.$title.'" size="80"><br>
         Subtitle:
