@@ -27,16 +27,17 @@ require 'navbar.php';
 
 <?php
 require 'db.php';
-require 'session.php';
 //Local or Heroku
-function printTable($allRows) {
+function printTable($allRows, $editable) {
 	echo'<h2>Freelance services:</h2><br>';
 	echo '<table class="fancy">';
 	echo '<tr>';
 	echo '<th>Title</th>';
     echo '<th>Short Description</th>';
     echo '<th>Rate</th>';
-    echo '<th>Action</th>';
+    if ($editable) { 
+    	echo '<th>Action</th>'; 
+    }
     echo ' </tr>';
 	foreach($allRows as $r) 
 				{
@@ -46,7 +47,9 @@ function printTable($allRows) {
 					$money  = $r['rate_in_cents']/100;
 					setlocale(LC_MONETARY, 'en_US');
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
-					echo '<td><a href="freelancedetails.php?id='.$r['id'].'">More Info</a></td>';
+					if ($editable) { 
+						echo '<td><a href="freelanceedit.php?id='.$r['id'].'">Edit</a></td>';
+					}
 					echo '</tr>';
 				}
 	echo '</table>';			
@@ -54,18 +57,27 @@ function printTable($allRows) {
 
 $db = getDb();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        // retrieve the form data by using the element's name attributes value as key
-           if ( isset($_GET['filter']) && $_GET['filter'] !== '')
-					{
+	        $my = isset($_GET['my']) && $_GET['my']== true && getSessionUser()!=null;
+	        if ( isset($_GET['filter']) && $_GET['filter'] !== '')
+           		{
 					    $filter = $_GET['filter'];
-						$allRows = selectFreelanceByName($db, $filter);					    
+						if ($my) {
+							$allRows = selectFreelanceByNameUser($db, $filter, getSessionUser());
+						} else {
+							$allRows = selectFreelanceByName($db, $filter);					    
+						} 
 					} else {
-					    $allRows = selectFreelanceAll($db);
+						if ($my) {
+							$$allRows = selectFreelanceAllUser($db, getSessionUser());
+						} else {
+							$allRows = selectFreelanceByName($db, $filter);					    
+						}
+					    
 					}
 				if(sizeof($allRows) > 0) {
-					printTable($allRows);
+					printTable($allRows, $my === true);
 				}
-    } 
+} 
 ?>
 </body>
 </html>

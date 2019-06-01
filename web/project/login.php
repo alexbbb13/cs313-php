@@ -18,9 +18,7 @@ require 'navbar.php';
 <br>
 <?php
    require 'db.php';
-   require 'session.php';
-
-
+   
     function printNoUser() {
         echo '<h2>Login</h2>
         <br>

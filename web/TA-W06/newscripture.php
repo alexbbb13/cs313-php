@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Freelance services</title>
+    <title>Scripture Insertion Tool</title>
 </head>
 <body>
 <?php

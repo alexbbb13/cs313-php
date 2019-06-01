@@ -62,6 +62,23 @@ function selectFreelanceByName($db, $name) {
 	return $rows;
 }
 
+function selectFreelanceByNameUser($db, $name, $user) {
+	$filteredName = filter_var($name, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredName) {
+		return null;
+	}
+	$filteredUser = filter_var($user, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredUser) {
+		return null;
+	}
+	$param = "'%".$filteredName."%'";
+	$query = 'SELECT * FROM freelance_services WHERE user_id='.$user.' AND (title LIKE '.$param.' OR description LIKE '.$param.' OR subtitle LIKE '.$param.')';
+	$stmt = $db->query($query);
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+
 function selectFreelanceById($db, $id) {
 	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	if(null == $filteredId) {
@@ -76,6 +93,14 @@ function selectFreelanceById($db, $id) {
 
 function selectFreelanceAll($db) {
 	$stmt = $db->query('SELECT * FROM freelance_services');
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectFreelanceAllUser($db, $user) {
+	$stmt = $db->query('SELECT * FROM freelance_services WHERE user_id=:user');
+	$stmt->bindParam(':user', $user, PDO::PARAM_STR, 40);
+	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
@@ -124,7 +149,7 @@ function selectJobsAll($db) {
 
 function getDb()
 {
-	return getHerokuDb();
+	return getLocalDb();
 }
 
 function getHerokuDb() {
@@ -153,18 +178,17 @@ function getHerokuDb() {
 function getLocalDb(){
 	try
 	{
-	  $user = 'alex';
-	  $password = 'alex';
+   	$dbUrl = "postgres://joe:joe@localhost:5432/joe";
+      $dbOpts = parse_url($dbUrl);
+      $dbHost = $dbOpts["host"];
 
-/*
-     $db = new PDO('pgsql:host=localhost;port=5432;dbname=postgres;user=postgres;password=postgres');
-     */
-	  $db = new PDO('pgsql:host=localhost;dbname="alex"', $user, $password);
-
-	  // this line makes PDO give us an exception when there are problems,
-	  // and can be very helpful in debugging! (But you would likely want
-	  // to disable it for production environments.)
-	  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ 		$dbPort = $dbOpts["port"];
+	  	$dbUser = $dbOpts["user"];
+	  	$dbPassword = $dbOpts["pass"];
+	  	$dbName = ltrim($dbOpts["path"],'/');
+	  	$db = new PDO("pgsql:host=$dbHost;port=$dbPort;dbname=$dbName", $dbUser, $dbPassword);
+	  	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	  	return $db;
 	}
 	catch (PDOException $ex)
 	{
@@ -173,5 +197,7 @@ function getLocalDb(){
    }
    return $db;
 }
+
+
 
 ?>

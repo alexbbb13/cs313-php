@@ -84,3 +84,12 @@ INSERT INTO freelance_services (user_id,title,subtitle, description, rate_in_cen
 VALUES ((select id from users where username = 'Tyler Newton'),'PHP Developer', 'I am equally good at developing PHP apps','I am a PHP fan', 3000, false, CURRENT_TIMESTAMP);
 INSERT INTO freelance_services (user_id,title,subtitle, description, rate_in_cents, active, created_at)
 VALUES ((select id from users where username = 'Maria Dark'),'Web Designer', 'Web design','Affordable rates for a high quality WEB design', 2000, false, CURRENT_TIMESTAMP);
+
+/*
+by postgres user:
+createuser --interactive joe
+aduser joe
+psql: FATAL:  database "joe" does not exist
+su - postgres
+createdb joe
+*/

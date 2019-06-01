@@ -19,17 +19,17 @@ require 'navbar.php';
 
 <?php
 require 'db.php';
-require 'session.php';
 //Local or Heroku
-function printTable($allRows) {
+function printTable($allRows, $id) {
 	echo'<h2>Freelance service:</h2><br>';
 	echo '<table class="fancy">';
-	echo '<tr>';
-	echo '<th>Name</th>';
+	 echo '<tr>';
+	 echo '<th>Name</th>';
     echo '<th>Title</th>';
     echo '<th>Short description</th>';
     echo '<th>Long description</th>';
     echo '<th>Rate</th>';
+    echo '<th>Action</th>';
     echo ' </tr>';
 	foreach($allRows as $r) 
 				{
@@ -41,6 +41,7 @@ function printTable($allRows) {
 					$money  = $r['rate_in_cents']/100;
 					setlocale(LC_MONETARY, 'en_US');
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
+               echo '<td><a href="freelanceedit.php?id='.$r['id'].'"></td>';     
 					echo '</tr>';
 				}
 	echo '</table>';			
