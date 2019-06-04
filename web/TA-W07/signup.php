@@ -53,6 +53,12 @@ session_start();
          header("Location: $newPage");
          die();    
     }
+
+    function checkValid($password){
+        $regexLength = "/[0-9a-zA-Z]{7,}/";
+        $regexNum = "/[0-9]/";
+        return (preg_match($regexLength, $password) && preg_match($regexNum, $password));
+    }
    
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login']) && isset($_POST['password'])){
         // retrieve the form data by using the element's name attributes value as key
@@ -66,7 +72,7 @@ session_start();
         if($countUsers == 0) {
                 //User not found
                 //Cheking password match 
-                if($password == $passwordCopy) {
+                if($password == $passwordCopy && checkValid($password)) {
                    $user_id = insertUser($db, $login, $password);
                    setSessionUser($user_id, $login);
                    redirectToWelcome();
