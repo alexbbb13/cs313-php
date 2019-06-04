@@ -35,8 +35,8 @@ session_start();
     }
 
     function insertUser($db, $login, $password) {
-        
-        echo '<h2>Welcome, '.$username.'</h2>';
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        insertUser($db, $login, $password);
     }
 
 

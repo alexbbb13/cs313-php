@@ -39,7 +39,8 @@ session_start();
         $login = $_POST['login'];
         $password = $_POST['password'];
         $db = getDb();
-        $users = selectByLoginPassword($db, $login, $password);//listAll($db); //
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $users = selectByLoginPassword($db, $login, $hashedPassword);//listAll($db); //
         $countUsers =count($users); 
         if($countUsers == 0) {
                 //User not found
