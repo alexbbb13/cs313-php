@@ -17,14 +17,22 @@ session_start();
    require 'db.php';
    require 'session.php';
    
-    function printNoUser() {
+    function printNoUser($inRed) {
+        if ($inRed === true) {
+            $asterisk = '*';
+        } else {
+            $asterisk = '';    
+        }
         echo '<h2>Signup</h2>
         <br>
         <form action="./signup.php" method="POST">
         E-mail:
         <input name="login" type="text"><br><br>
         Password:
-        <input name="password" type="text">
+        <em>'.$asterisk.'</em><input name="password" type="text">
+        <br>
+        Confirm password:
+        <em>'.$asterisk.'</em><input name="password_copy" type="text">
         <br><br>
         <input type="submit">
         </form>';
@@ -50,22 +58,29 @@ session_start();
         // retrieve the form data by using the element's name attributes value as key
         $login = $_POST['login'];
         $password = $_POST['password'];
+        $passwordCopy = $_POST['password_copy'];
         $db = getDb();
         $users = selectByLogin($db, $login);
         //$users = selectByLoginPassword($db, $login, $password);
         $countUsers =count($users); 
         if($countUsers == 0) {
                 //User not found
-                $user_id = insertUser($db, $login, $password);
-                setSessionUser($user_id, $login);
-                redirectToWelcome();
+                //Cheking password match 
+                if($password == $passwordCopy) {
+                   $user_id = insertUser($db, $login, $password);
+                   setSessionUser($user_id, $login);
+                   redirectToWelcome();
+                } else {
+                    // Passwords do not match
+                    printNoUser(true);
+                }
         } else {
             // multiple users with same login not allowed, 
             echo '<h2>Error</h2>';
         }
     } else {
         //Get or no login/ password info
-        printNoUser();
+        printNoUser(false);
     }
 ?>
 </body>
