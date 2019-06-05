@@ -55,7 +55,7 @@ session_start();
                 printNoUser();
         } else if ($countUsers == 1) {
                 // user is found, storing the user Id into session
-                $r = users[0];
+                $r = $users[0];
                 $id = $r['id'];
                 $hashedPassword = $r['password'];
                 $userName = $r['login'];
