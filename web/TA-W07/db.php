@@ -11,7 +11,7 @@ function selectByLoginPassword($db, $login, $password) {
 	if(null == $filteredLogin || null == $filteredPassword) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT * FROM users WHERE login=:login AND password=:password');
+	$stmt = $db->prepare('SELECT * FROM ta07_users WHERE login=:login AND password=:password');
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 40);
 	$stmt->execute();
@@ -25,7 +25,7 @@ function insertUser($db, $login, $password) {
 	if(null == $filteredLogin || null == $filteredPassword) {
 		return null;
 	}
-	$stmt = $db->prepare('INSERT INTO users (login, password) VALUES (:login,:password)');
+	$stmt = $db->prepare('INSERT INTO ta07_users (login, password) VALUES (:login,:password)');
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 40);
 	$stmt->execute();
@@ -37,7 +37,7 @@ function selectByLogin($db, $login) {
 	if(null == $filteredLogin) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT * FROM users WHERE login=:login');
+	$stmt = $db->prepare('SELECT * FROM ta07_users WHERE login=:login');
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
