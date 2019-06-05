@@ -4,7 +4,7 @@
  *	Login page
  *
  */
-
+/*
 function selectByLoginPassword($db, $login, $password) {
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
@@ -18,7 +18,7 @@ function selectByLoginPassword($db, $login, $password) {
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
-
+*/
 function insertUser($db, $login, $password) {
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
