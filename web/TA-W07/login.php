@@ -59,6 +59,8 @@ session_start();
                 $id = $r['id'];
                 $hashedPassword = $r['password'];
                 $userName = $r['login'];
+                var_dump($password);
+                var_dump($hashedPassword);
                 if(password_verify($password, $hashedPassword)) {
                     setSessionUser($id, $userName);
                     $newPage = "welcome.php";
