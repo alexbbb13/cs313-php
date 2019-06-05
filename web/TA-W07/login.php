@@ -40,7 +40,10 @@ session_start();
         $password = $_POST['password'];
         $db = getDb();
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        echo '<br>';
+        var_dump($hashedPassword);
         $users = selectByLoginPassword($db, $login, $hashedPassword);//listAll($db); //
+        var_dump($users);
         $countUsers =count($users); 
         if($countUsers == 0) {
                 //User not found
@@ -50,7 +53,7 @@ session_start();
                 $r = users[0];
                 setSessionUser($r['id'], $r['login']);
                 printUser($r['username']);
-                $newPage = "freelance.php?my=true";
+                $newPage = "welcome.php";
                 header("Location: $newPage");
                 die();    
         } else {
