@@ -29,7 +29,7 @@ function insertUser($db, $login, $password) {
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 40);
 	$stmt->execute();
-	return $db->lastInsertId('users_id_seq');
+	return $db->lastInsertId('ta07_users_id_seq');
 }
 
 function selectByLogin($db, $login) {
