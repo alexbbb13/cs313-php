@@ -44,6 +44,7 @@ session_start();
 
     function insertUserToDb($db, $login, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        echo 'password='.$password.', hash = '.$hashedPassword.'';
         insertUser($db, $login, $hashedPassword);
     }
 

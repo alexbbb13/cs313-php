@@ -37,11 +37,15 @@ session_start();
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login']) && isset($_POST['password'])){
         // retrieve the form data by using the element's name attributes value as key
         $login = $_POST['login'];
+
         $password = $_POST['password'];
         $db = getDb();
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        var_dump($password);
         echo '<br>';
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        echo 'password='.$password.', hash = '.$hashedPassword.'<br>';
         var_dump($hashedPassword);
+        echo '<br>';
         $users = selectByLoginPassword($db, $login, $hashedPassword);//listAll($db); //
         var_dump($users);
         $countUsers =count($users); 
