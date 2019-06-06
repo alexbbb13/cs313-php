@@ -156,7 +156,7 @@ function insertFreelanceService($db, $userId, $title, $subtitle, $description, $
 function deleteFreelanceService($db, $userId, $freelanceServiceId){
 	$stmt = $db->prepare('DELETE FROM freelance_services WHERE id=:freelanceServiceId  AND user_id=:user_id');
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);'SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user'
 	$stmt->execute();
 }
 
@@ -205,6 +205,14 @@ function selectJobsById($db, $id) {
 
 function selectJobsAll($db) {
 	$stmt = $db->query('SELECT * FROM jobs');
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectJobsAllUser($db, $user) {
+	$stmt = $db->prepare('SELECT * FROM jobs WHERE user_id=:user');
+	$stmt->bindParam(':user', $user, PDO::PARAM_STR, 40);
+	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
@@ -285,6 +293,16 @@ function insertJob($db, $user, $title, $description, $rate_in_cents, $projectedH
 
 function selectApplications($db, $jobId, $freelanceId, $userId) {
 	$stmt = $db->prepare('SELECT * FROM applications WHERE job_id=:jobId AND user_id=:userId AND freelance_service_id=:freelanceId');
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectAllApplicationsForMyJob($db, $jobId, $userId) {
+	$stmt = $db->prepare('SELECT applications.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user');
 	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
 	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
 	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);

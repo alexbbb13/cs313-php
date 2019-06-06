@@ -48,8 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
            if (isset($_GET['id']))
 					{
-					    $filter = $_GET['id'];
-						$allRows = selectJobsById($db, $filter);					    
+					    $id = $_GET['id'];
+						$allRows = selectJobsById($db, $id);					    
 					} else {
 					    echo '<b>Error!</b>';
 					}
