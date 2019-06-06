@@ -48,7 +48,6 @@ session_start();
         // var_dump($hashedPassword);
         // echo '<br>';
         $users = selectByLogin($db, $login);//listAll($db); //
-        var_dump($users);
         $countUsers =count($users); 
         if($countUsers == 0) {
                 //User not found

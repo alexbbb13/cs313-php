@@ -41,21 +41,27 @@ require 'navbar.php';
         $login = $_POST['login'];
         $password = $_POST['password'];
         $db = getDb();
-        $users = selectByLoginPassword($db, $login, $password);//listAll($db); //
+        $users = selectByLogin($db, $login);//listAll($db); //
         $countUsers =count($users); 
         if($countUsers == 0) {
                 //User not found
                 printNoUser();
         } else if ($countUsers == 1) {
                 // user is found, storing the user Id into session
-                foreach($users as $r) 
-                    {
-                        setSessionUser($r['id'], $r['username']);
-                        printUser($r['username']);
-                        $newPage = "freelance.php?my=true";
-                        header("Location: $newPage");
-                        die();    
-                    }    
+                     $r = $users[0];
+                $id = $r['id'];
+                $hashedPassword = $r['password'];
+                $userName = $r['username'];
+                var_dump($password);
+                var_dump($hashedPassword);
+                if(password_verify($password, $hashedPassword)) {
+                    setSessionUser($id, $userName);
+                    $newPage = "freelance.php?my=true";
+                    header("Location: $newPage");
+                    die();    
+                } else {
+                    echo '<h2>Passwords do not match!</h2>';
+                }
         } else {
             // multiple users, 
             echo '<h2>Error</h2>';

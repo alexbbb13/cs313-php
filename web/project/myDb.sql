@@ -5,7 +5,7 @@ create table users
 	 id serial not null primary key,
 	 username varchar(100) not null,
     login varchar(40) not null UNIQUE,
-    password varchar(40) not null,
+    password varchar(100) not null,
     salt varchar(20) not null,
     password_hash varchar(100) not null, 
     status status not null,
@@ -33,7 +33,7 @@ create table jobs
 	title varchar(80) not null,
 	description varchar(6000),
 	rate_in_cents integer not null,
-	projected_hours integer,
+	projected_hours NUMERIC (4,2),
 	job_status job_status not null,
 	created_at timestamp not null	
 );

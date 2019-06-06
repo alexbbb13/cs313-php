@@ -10,37 +10,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		   	  die();
 		   } 
 		   //
-		   if (isset($_POST['delete']) && $_POST['delete']=='true' && isset($_POST['freelance_id'])) {
+		   if (isset($_POST['delete']) && $_POST['delete']=='true' && isset($_POST['job_id'])) {
 		   	// a request to delete the freelance service
 		   	        $db = getDb();
-		   			$freelanceServiceId = $_POST['freelance_id'];
-		   			deleteFreelanceService($db, $user, $freelanceServiceId);
-		   } elseif (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['rate_in_dollars'])){
+		   			$jobId = $_POST['job_id'];
+		   			deleteJob($db, $user, $jobId);
+		   } elseif (isset($_POST['title']) && 
+		   	         isset($_POST['rate_in_dollars']) &&
+		   	         isset($_POST['projected_hours']) 
+		   	     ){
 
 						$title = $_POST['title'];
-						$subtitle = $_POST['subtitle'];
 						$rate_in_cents = (int)($_POST['rate_in_dollars']*100);
 						if (isset($_POST['description'])) {
 							$description = $_POST['description'];
 						} else {
 							$description = "";
 						}
+						$projectedHours = $_POST['projected_hours'];
+
 						$db = getDb();
-						if (isset($_POST['freelance_id'])) {
-							$freelanceServiceId = $_POST['freelance_id'];
+						if (isset($_POST['job_id'])) {
+							$jobId = $_POST['job_id'];
 							//var_dump($freelanceServiceId)
-							updateFreelanceService($db, $user, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents);
+							updateJob($db, $user, $jobId, $title, $description, $rate_in_cents, $projectedHours);
 						} else {
 							//id is not set, insering new freelance service
-							$freelanceServiceId  = insertFreelanceService($db, $user, $title, $subtitle, $description, $rate_in_cents);
+							$jobId  = insertJob($db, $user, $title, $description, $rate_in_cents, $projectedHours);
 						}
 						
 			} else {
-						echo '<b>Error! Title, subtitle and rate are required</b>';
+						echo '<b>Error! Title, rate, and hours are required</b>';
 			}
 
     
-$newPage = "freelance.php?my=true";
+$newPage = "jobs.php?my=true";
 header("Location: $newPage");
 die();
 }

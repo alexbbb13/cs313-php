@@ -31,19 +31,31 @@ function selectByBook($db, $book) {
  *
  */
 
-function selectByLoginPassword($db, $login, $password) {
+function insertUser($db, $login, $password) {
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	if(null == $filteredLogin || null == $filteredPassword) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT * FROM users WHERE login=:login AND password=:password');
+	$stmt = $db->prepare('INSERT INTO users (login, password) VALUES (:login,:password)');
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 40);
+	$stmt->execute();
+	return $db->lastInsertId('users_id_seq');
+}
+
+function selectByLogin($db, $login) {
+	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredLogin) {
+		return null;
+	}
+	$stmt = $db->prepare('SELECT * FROM users WHERE login=:login');
+	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
+
 
 /*
  *	Freelancers page
@@ -196,6 +208,63 @@ function selectJobsAll($db) {
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
+
+function selectJobByIdUser($db, $id, $user) {
+	$filteredId = filter_var($id, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredId) {
+		return null;
+	}
+	$filteredUserId = filter_var($user, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	if(null == $filteredId || null == $filteredUserId) {
+		return null;
+	}
+	$stmt = $db->prepare('SELECT jobs.id, users.username, jobs.title, jobs.description, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN users on jobs.user_id=users.id WHERE jobs.id=:id AND jobs.user_id=:$user');
+	$stmt->bindParam(':id', $filteredId, PDO::PARAM_INT);
+	$stmt->bindParam(':user', $filteredUserId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function deleteJob($db, $userId, $jobId){
+	$stmt = $db->prepare('DELETE FROM jobs WHERE id=:jobId  AND user_id=:user_id');
+	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->execute();
+}
+
+function updateJob($db, $user, $jobId, $title, $description, $rate_in_cents, $projectedHours){
+	$stmt = $db->prepare('UPDATE jobs SET 
+		title=:title, 
+		description=:description, 
+		rate_in_cents=:rate_in_cents,
+		projected_hours=:projectedHours
+		WHERE 
+		id=:jobId 
+		AND user_id=:user_id');
+	$active = true;
+	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
+	$stmt->bindParam(':rate_in_cents', $rate_in_cents, PDO::PARAM_INT);
+	$stmt->bindParam(':projectedHours', $projectedHours, PDO::PARAM_STR, 20);
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->execute();
+}
+
+function insertJob($db, $user, $title, $description, $rate_in_cents, $projectedHours){
+	$stmt = $db->prepare('INSERT INTO jobs (user_id, title, description, rate_in_cents, projected_hours, created_at) VALUES (:user_id, :title, :description, :rate_in_cents, :projected_hours, CURRENT_TIMESTAMP)');
+	$active = true;
+	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
+	$stmt->bindParam(':rate_in_cents', $rate_in_cents, PDO::PARAM_INT);
+	$stmt->bindParam(':projected_hours', $projectedHours, PDO::PARAM_STR, 20);
+	$stmt->bindParam(':active', $active, PDO::PARAM_INT);
+	$stmt->execute();
+	return $db->lastInsertId('jobs_id_seq');
+}
+
 
 /*
 		Applications
