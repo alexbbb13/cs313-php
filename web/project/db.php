@@ -276,7 +276,19 @@ function insertJob($db, $user, $title, $description, $rate_in_cents, $projectedH
 
 /*
 		Applications
-		create table applications
+create table jobs
+(    
+	id serial not null primary key,
+	user_id integer references users(id),
+	title varchar(80) not null,
+	description varchar(6000),
+	rate_in_cents integer not null,
+	projected_hours NUMERIC (4,2),
+	job_status job_status not null,
+	created_at timestamp not null	
+);
+
+create table applications
 (
 	id serial not null primary key,
 	job_id integer references jobs(id),
@@ -302,9 +314,35 @@ function selectApplications($db, $jobId, $freelanceId, $userId) {
 }
 
 function selectAllApplicationsForMyJob($db, $jobId, $userId) {
-	$stmt = $db->prepare('SELECT applications.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user');
+	$stmt = $db->prepare('
+		SELECT
+  			jobs.id as jobId,
+  			applications.id as applicationId,
+  			jobs.user_id as clientUserId,
+  			applications.user_id as freelancerUserId,
+  			applications.freelance_service_id as freelancerServiceId,
+  			freelance_services.title,
+  			applications.rate_in_cents,
+  			applications.projected_hours
+		FROM
+  			jobs
+  		INNER JOIN applications on jobId = applications.job_id
+  		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
+		WHERE
+  			jobId = :id
+  			AND clientUserId = :userId
+		');
 	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
-	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
+	$stmt = $db->prepare('SELECT jobs.id, applications.user_id, jobs.title, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN applications on jobs.id=applications.job_id WHERE jobs.id=:id AND jobs.user_id=:userId AND applications.id=:applicationId');
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
 	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
