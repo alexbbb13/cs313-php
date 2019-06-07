@@ -340,7 +340,27 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 }
 
 function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
-	$stmt = $db->prepare('SELECT jobs.id, applications.user_id, jobs.title, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN applications on jobs.id=applications.job_id WHERE jobs.id=:id AND jobs.user_id=:userId AND applications.id=:applicationId');
+	$stmt = $db->prepare('
+		SELECT
+  			jobs.id as jobId,
+  			applications.id as applicationId,
+  			jobs.user_id as clientUserId,
+  			applications.user_id as freelancerUserId,
+  			applications.freelance_service_id as freelancerServiceId,
+  			freelance_services.title,
+  			applications.rate_in_cents,
+  			applications.rate_in_cents,
+  			applications.projected_hours,
+  			applications.cover_letter
+		FROM
+  			jobs
+  		INNER JOIN applications on jobId = applications.job_id
+  		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
+		WHERE
+  			jobId = :id
+  			AND clientUserId = :userId
+  			AND applicationId = :applicationId
+		');
 	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
 	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
 	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
