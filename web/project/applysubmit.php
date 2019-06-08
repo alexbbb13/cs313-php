@@ -25,21 +25,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 isset($_POST['rate']) &&
                 isset($_POST['hours']) 
                 ) {
-	        	$jobId =        $_POST['job_id'];
-	        	$freelanceId =  $_POST['freelance_id'];
-	        	$userId = getSessionUser();
-                $description =  $_POST['description'];
-                $rate =         $_POST['rate'];
-                $hours =        $_POST['hours'];
+    	        	$jobId =        $_POST['job_id'];
+    	        	$freelanceId =  $_POST['freelance_id'];
+    	        	$userId = getSessionUser();
+                    $description =  $_POST['description'];
+                    $rate =         $_POST['rate'];
+                    $hours =        $_POST['hours'];
 
-	        	insertApplication($db, $jobId, $freelanceId, $userId, $description, $hours, $rate * 100);
-				}
+                    $allRows = selectApplications($db, $jobId, $freelanceId, $userId);
+                    if(sizeof($allRows) > 0) {
+                        //Already have the application for the job
+                        echo '<em>Error:You already have active applications for that job!</em>';
+                        die();
+                    } else {
+                        //Inserting new application
+                        insertApplication($db, $jobId, $freelanceId, $userId, $description, $hours, $rate * 100);
+                        $newPage = "freelance.php?my=true";
+                        header("Location: $newPage");
+                        die();
+                    } 
+	        	}
 } 
-
-    
-$newPage = "freelance.php?my=true";
-header("Location: $newPage");
-die();
 ?>	
 
 </body>
