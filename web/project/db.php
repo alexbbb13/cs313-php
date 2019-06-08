@@ -32,7 +32,7 @@ function selectByBook($db, $book) {
  */
 
 function insertUser($db, $username, $login, $password) {
-	$filteredUsername = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
+	$filteredUsername = filter_var($username, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	if(null == $filteredLogin || null == $filteredPassword || null == $filteredUsername) {
