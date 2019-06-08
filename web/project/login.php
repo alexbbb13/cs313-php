@@ -42,6 +42,7 @@ require 'navbar.php';
         $password = $_POST['password'];
         $db = getDb();
         $users = selectByLogin($db, $login);//listAll($db); //
+
         $countUsers =count($users); 
         if($countUsers == 0) {
                 //User not found
@@ -50,11 +51,9 @@ require 'navbar.php';
                 // user is found, storing the user Id into session
                      $r = $users[0];
                 $id = $r['id'];
-                $password = $r['password'];
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $passwordInput = $_POST['password']
+                $hashedPassword = $r['password'];
                 $userName = $r['username'];
-                var_dump($password);
-                var_dump($hashedPassword);
                 if(password_verify($password, $hashedPassword)) {
                     setSessionUser($id, $userName);
                     $newPage = "freelance.php?my=true";
