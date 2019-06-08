@@ -268,7 +268,7 @@ function updateJob($db, $user, $jobId, $title, $description, $rate_in_cents, $pr
 	$stmt->execute();
 }
 
-function insertJob($db, $user, $title, $description, $rate_in_cents, $projectedHours){
+function insertJob($db, $userId, $title, $description, $rate_in_cents, $projectedHours){
 	$stmt = $db->prepare('INSERT INTO jobs (user_id, title, description, rate_in_cents, projected_hours, job_status, created_at) VALUES (:user_id, :title, :description, :rate_in_cents, :projected_hours, :job_status, CURRENT_TIMESTAMP)');
 	$jobStatus = 'Open';
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);

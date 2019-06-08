@@ -49,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
            if (isset($_GET['id']))
 					{
 					    $id = $_GET['id'];
-						$allRows = selectJobsById($db, $id);					    
+						$allRows = selectJobsById($db, $id);
+						var_dump($allRows);				    
 					} else {
 					    echo '<b>Error!</b>';
 					}
