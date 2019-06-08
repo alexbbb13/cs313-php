@@ -10,6 +10,7 @@ echo '<ul>
  	echo '<li style="float:right"><a href="./freelance.php?my=true">'.getSessionUserName().'</a></li>';
  } else {
    echo '<li><a href="./login.php">Login</a></li></ul><br>';
+   echo '<li><a href="./signup.php">Signup</a></li></ul><br>';
  }
 
 ?>
