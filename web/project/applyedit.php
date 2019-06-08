@@ -20,13 +20,13 @@ function printForEdit( $applicationId, $jobId, $freelanceId, $coverLetter, $proj
         //if id is null -> create new for this user, if id is not null - edit
         echo '<h2>Create/edit application:</h2>
         <br>
-        <form action="applydelete.php" method="POST">
+        <form action="applysubmit.php" method="POST">
         <br>';
 
         if($applicationId != null) {
             //This application exists, so we can delete it
             echo '
-            <button name="delete" type="submit" value="true">Delete</button><br><br>
+            <button name="delete" type="submit" value="true" formaction="applydelete.php" method="POST">Delete</button><br><br>
             <input type="hidden" type="number" name="application_id" value="'.$applicationId.'">';
         }
 
