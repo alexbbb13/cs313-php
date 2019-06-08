@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					printTableRow($allRows[0]);
 				}
 
- s   } else {
+    } else {
     	//echo "<p>no request method!</p>";
     }
 ?>
