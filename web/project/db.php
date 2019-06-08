@@ -31,15 +31,17 @@ function selectByBook($db, $book) {
  *
  */
 
-function insertUser($db, $login, $password) {
+function insertUser($db, $username, $login, $password) {
+	$filteredUsername = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
-	if(null == $filteredLogin || null == $filteredPassword) {
+	if(null == $filteredLogin || null == $filteredPassword || null == $filteredUsername) {
 		return null;
 	}
-	$stmt = $db->prepare('INSERT INTO users (login, password) VALUES (:login,:password)');
+	$stmt = $db->prepare('INSERT INTO users (username, login, password) VALUES (:username,:login,:password)');
+	$stmt->bindParam(':username', $filteredUsername, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
-	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 80);
 	$stmt->execute();
 	return $db->lastInsertId('users_id_seq');
 }

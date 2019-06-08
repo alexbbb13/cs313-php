@@ -26,6 +26,8 @@ session_start();
         echo '<h2>Signup</h2>
         <br>
         <form action="./signup.php" method="POST">
+        Username:
+        <input name="username" type="text"><br><br>
         E-mail:
         <input name="login" type="text"><br><br>
         Password:
@@ -38,9 +40,9 @@ session_start();
         </form>';
     }
 
-   function insertUserToDb($db, $login, $password) {
+   function insertUserToDb($db, $username, $login, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        insertUser($db, $login, $hashedPassword);
+        return insertUser($db, $username, $login, $hashedPassword);
     }
 
 
@@ -57,11 +59,13 @@ session_start();
     }
    
     if ($_SERVER["REQUEST_METHOD"] == "POST" && 
+        isset($_POST['username']) && 
         isset($_POST['login']) && 
         isset($_POST['password']) && 
         isset($_POST['password_copy'])
     ){
         // retrieve the form data by using the element's name attributes value as key
+        $username = $_POST['username'];
         $login = $_POST['login'];
         $password = $_POST['password'];
         $passwordCopy = $_POST['password_copy'];
@@ -73,9 +77,11 @@ session_start();
                 //User not found
                 //Cheking password match 
                 if($password == $passwordCopy && checkValid($password)) {
-                   $user_id = insertUserToDb($db, $login, $password);
-                   setSessionUser($user_id, $login);
-                   redirectToWelcome();
+                   $user_id = insertUserToDb($db, $username, $login, $password);
+                   if ($user_id !== null) {
+                        setSessionUser($user_id, $username);
+                        redirectToWelcome();
+                    }
                 } else {
                     // Passwords do not match
                     printNoUser(true);
