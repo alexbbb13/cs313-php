@@ -16,7 +16,7 @@ session_start();
 require 'navbar.php';
 ?>	
 	
-<h2>Applications for the job:</h2>
+<h2>Sent applications:</h2>
 <br>
 
 
@@ -50,7 +50,7 @@ function printTable($allRows) {
 
 $db = getDb();
 $userId = getSessionUser();
-if ($user !== null) {
+if ($userId !== null) {
 	$allRows = selectAllApplicationsForUser($db, $userId);					    
 	if(sizeof($allRows) > 0) {
 		printTable($allRows);
