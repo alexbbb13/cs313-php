@@ -18,6 +18,9 @@ require 'navbar.php';
 	
 <h2>My open jobs</h2>
 <br>
+<br><form action="jobedit.php" method="GET">
+	<input type="submit" value="Create new job" >
+	</form><br>
 
 
 <?php
