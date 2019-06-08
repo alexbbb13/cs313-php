@@ -16,7 +16,7 @@ session_start();
 require 'db.php';
 require 'navbar.php';
 
-function printForEdit( $applicationId, $jobId, $freelanceId, $title, $coverLetter, $projectedHours, $rate_in_cents) {
+function printForEdit( $applicationId, $jobId, $freelanceId, $coverLetter, $projectedHours, $rate_in_cents) {
         //if id is null -> create new for this user, if id is not null - edit
         echo '<h2>Create/edit application:</h2>
         <br>
@@ -30,17 +30,16 @@ function printForEdit( $applicationId, $jobId, $freelanceId, $title, $coverLette
             <input type="hidden" type="number" name="application_id" value="'.$applicationId.'">';
         }
 
-        echo 'Title:
-        <input name="title" type="text" value="'.$title.'" size="80"><br>
+        echo '
         <br>
         Cover Letter:
         <textarea name="description" value="'.$coverLetter.'" rows="20" cols="80">'.$coverLetter.'</textarea>
         <br>
         Rate per hour: $
-        <input name="rate" type="number" value="'.$rate.'" min="0.00" max="1000.00" step="0.01">
+        <input name="rate" type="number" value="'.$rate_in_cents.'" min="0.00" max="1000.00" step="0.01">
         <br>
         Projected Hours: $
-        <input name="hours" type="number" value="'.$hours.'" min="0.5" max="2000.00" step="0.5">
+        <input name="hours" type="number" value="'.$projectedHours.'" min="0.5" max="2000.00" step="0.5">
         <br>
         <input type="submit" value="Save and exit" >
         <input type="hidden" type="number" name="job_id" value="'.$jobId.'">
@@ -50,7 +49,7 @@ function printForEdit( $applicationId, $jobId, $freelanceId, $title, $coverLette
 
 $db = getDb();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-	        if ( isset($_GET['job_id']) && $_GET['job_id'] !== '' && isset($_GET['freelance_id']) ) {
+            if ( isset($_GET['job_id']) && $_GET['job_id'] !== '' && isset($_GET['freelance_id']) ) {
 	        	$jobId = $_GET['job_id'];
 	        	$freelanceId = $_GET['freelance_id'];
 	        	$userId = getSessionUser();
@@ -62,12 +61,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				$applicationId = $r['id'];
 				$money  = $r['rate_in_cents']/100;
 			    setlocale(LC_MONETARY, 'en_US');
-				$rate_in_cents = $r['rate_in_cents'];
 				$projected_hours = $r['projected_hours'];
 				$cover_letter = $r['cover_letter'];
-				printForEdit($applicationId,$jobId, $freelanceId, '',  $cover_letter, $projected_hours,  $money);
+                //$applicationId, $jobId, $freelanceId, $title, $coverLetter, $projectedHours, $rate_in_cents
+				printForEdit($applicationId,$jobId, $freelanceId, $cover_letter, $projected_hours,  $money);
 			} else {
-				printForEdit(null,$jobId, $freelanceId, '',  '', 0.5,  10);
+				printForEdit(null,$jobId, $freelanceId, '', 0.5,  10);
 			}
 } 
 
