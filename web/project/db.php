@@ -340,8 +340,6 @@ function deleteApplication($db, $applicationId) {
 	return $rows;
 }
 
-selectApplicationById($db, $applicationId, $jobId, $freelanceId, $userId)
-
 function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 	$stmt = $db->prepare('
 		SELECT
