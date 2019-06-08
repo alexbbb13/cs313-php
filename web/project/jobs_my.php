@@ -20,7 +20,8 @@ require 'navbar.php';
 <br>
 <br><form action="jobedit.php" method="GET">
 	<input type="submit" value="Create new job" >
-	</form><br>';
+	</form>
+<br>
 
 
 <?php

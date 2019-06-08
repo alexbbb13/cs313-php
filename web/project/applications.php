@@ -51,7 +51,7 @@ function printTable($allRows) {
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
 					echo '<td>'.$r['projected_hours'].'</td>';
 					echo '<td><a href="freelancedetails.php?id='.$r['freelancerserviceid'].'">About</a></td>';
-					echo '<td><a href="applicationdetails.php?application_id='.$r['applicationid'].'&job_id='.$r['jobsid'].'">More</a></td>';
+					echo '<td><a href="applicationdetails.php?application_id='.$r['applicationid'].'&job_id='.$r['jobsid'].'">Cover Letter</a></td>';
 					echo '</tr>';
 				}
 	echo '</table>';			
