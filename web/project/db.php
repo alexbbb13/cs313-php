@@ -334,7 +334,7 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
   			applications.projected_hours
 		FROM
   			jobs
-  		INNER JOIN applications on jobId = applications.job_id
+  		INNER JOIN applications on jobsId = applications.job_id
   		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
 		WHERE
   			jobsId = :jobId
