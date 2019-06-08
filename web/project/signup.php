@@ -19,7 +19,7 @@ session_start();
    
     function printNoUser($inRed) {
         if ($inRed === true) {
-            $asterisk = '*';
+            $asterisk = 'Passwords do not match ';
         } else {
             $asterisk = '';    
         }
@@ -53,9 +53,11 @@ session_start();
     }
 
     function checkValid($password){
-        $regexLength = "/[0-9a-zA-Z]{7,}/";
-        $regexNum = "/[0-9]/";
-        return (preg_match($regexLength, $password) && preg_match($regexNum, $password));
+        //@TODO uncomment in production and make password strength message
+        //$regexLength = "/[0-9a-zA-Z]{7,}/";
+        //$regexNum = "/[0-9]/";
+        //return (preg_match($regexLength, $password) && preg_match($regexNum, $password));
+        return true;
     }
    
     if ($_SERVER["REQUEST_METHOD"] == "POST" && 
