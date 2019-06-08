@@ -50,7 +50,8 @@ require 'navbar.php';
                 // user is found, storing the user Id into session
                      $r = $users[0];
                 $id = $r['id'];
-                $hashedPassword = $r['password'];
+                $password = $r['password'];
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $userName = $r['username'];
                 var_dump($password);
                 var_dump($hashedPassword);
