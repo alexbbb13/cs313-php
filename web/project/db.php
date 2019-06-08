@@ -321,6 +321,27 @@ function selectApplications($db, $jobId, $freelanceId, $userId) {
 	return $rows;
 }
 
+function selectApplicationById($db, $applicationId, $jobId, $freelanceId, $userId) {
+	$stmt = $db->prepare('SELECT * FROM applications WHERE job_id=:jobId AND user_id=:userId AND freelance_service_id=:freelanceId AND id=:applicationId');
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function deleteApplication($db, $applicationId) {
+	$stmt = $db->prepare('DELETE FROM applications WHERE id=:applicationId');
+	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+selectApplicationById($db, $applicationId, $jobId, $freelanceId, $userId)
+
 function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 	$stmt = $db->prepare('
 		SELECT

@@ -31,7 +31,7 @@ function printTable($allRows) {
     echo '<th>Rate</th>';
     echo '<th>Hours</th>';
     echo '<th>Action</th>';
-    echo '<th>Info</th>';
+    //echo '<th>Info</th>';
     echo ' </tr>';
 	foreach($allRows as $r) 
 				{
@@ -42,7 +42,7 @@ function printTable($allRows) {
                     echo '<td>'.money_format('%(#10n', $money).'</td>';
 					echo '<td>'.$r['projected_hours'].'</td>';
 					echo '<td><a href="applyedit.php?freelance_id='.$r['freelancerserviceid'].'&job_id='.$r['jobsid'].'">Edit</a></td>';
-					echo '<td><a href="applicationdetails.php?application_id='.$r['applicationid'].'&job_id='.$r['jobsid'].'">More</a></td>';
+					// echo '<td><a href="applicationdetails.php?application_id='.$r['applicationid'].'&job_id='.$r['jobsid'].'">More</a></td>';
 					echo '</tr>';
 				}
 	echo '</table>';			

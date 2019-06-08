@@ -20,7 +20,7 @@ function printForEdit( $applicationId, $jobId, $freelanceId, $coverLetter, $proj
         //if id is null -> create new for this user, if id is not null - edit
         echo '<h2>Create/edit application:</h2>
         <br>
-        <form action="applysubmit.php" method="POST">
+        <form action="applydelete.php" method="POST">
         <br>';
 
         if($applicationId != null) {
