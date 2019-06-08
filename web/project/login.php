@@ -51,7 +51,7 @@ require 'navbar.php';
                 // user is found, storing the user Id into session
                      $r = $users[0];
                 $id = $r['id'];
-                $passwordInput = $_POST['password']
+                $passwordInput = $_POST['password'];
                 $hashedPassword = $r['password'];
                 $userName = $r['username'];
                 if(password_verify($password, $hashedPassword)) {
