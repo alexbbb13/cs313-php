@@ -38,7 +38,7 @@ function insertUser($db, $username, $login, $password) {
 	if(null == $filteredLogin || null == $filteredPassword || null == $filteredUsername) {
 		return null;
 	}
-	$stmt = $db->prepare('INSERT INTO users (username, login, password, status, created_at) VALUES (:username,:login,:password,"Active", CURRENT_TIMESTAMP)');
+	$stmt = $db->prepare('INSERT INTO users (username, login, password, status, created_at) VALUES (:username,:login,:password,'Active', CURRENT_TIMESTAMP)');
 	$stmt->bindParam(':username', $filteredUsername, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 80);
