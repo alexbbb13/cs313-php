@@ -334,8 +334,8 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
   			applications.projected_hours
 		FROM
   			jobs
-  		INNER JOIN applications on jobsId = applications.job_id
-  		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
+  		INNER JOIN applications on jobs.id = applications.job_id
+  		INNER JOIN freelance_services on applications.freelance_service_id = freelance_services.id
 		WHERE
   			jobsId = :jobId
   			AND clientUserId = :userId
@@ -362,8 +362,8 @@ function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
   			applications.cover_letter
 		FROM
   			jobs
-  		INNER JOIN applications on jobId = applications.job_id
-  		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
+  		INNER JOIN applications on jobs.id = applications.job_id
+  		INNER JOIN freelance_services on applications.user_id = freelance_services.id
 		WHERE
   			jobId = :id
   			AND clientUserId = :userId
