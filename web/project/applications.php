@@ -45,7 +45,6 @@ function printTable($allRows) {
     echo ' </tr>';
 	foreach($allRows as $r) 
 				{
-					var_dump($r);
 					echo '<tr>';
 					echo '<td>'.$r['title'].'</td>';
 					$money  = $r['rate_in_cents']/100;

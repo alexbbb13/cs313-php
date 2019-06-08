@@ -204,7 +204,7 @@ function selectJobsById($db, $id) {
 	if(null == $filteredId) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT jobs.id, users.username, jobs.title, jobs.description, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN users on jobs.user_id=users.id WHERE jobs.id=:id');
+	$stmt = $db->prepare('SELECT jobs.id, users.username, users.id as job_user_id, jobs.title, jobs.description, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN users on jobs.user_id=users.id WHERE jobs.id=:id');
 	$stmt->bindParam(':id', $filteredId, PDO::PARAM_STR, 40);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
