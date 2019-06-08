@@ -451,6 +451,28 @@ function insertApplication($db, $jobId, $freelanceId, $userId, $description, $ho
 	return $rows;
 }
 
+function updateApplication($db, $applicationId, $jobId, $freelanceId, $userId, $description, $hours,  $rate) {
+	$stmt = $db->prepare('
+		UPDATE applications 
+		SET job_id=:jobId, 
+		user_id=:userId, 
+		freelance_service_id=:freelanceId, 
+		rate_in_cents=:rate, 
+		projected_hours=:hours, 
+		cover_letter=:description,  
+		accepted=false, 
+		created_at=CURRENT_TIMESTAMP WHERE id=:applicationId');
+	
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
+	$stmt->bindParam(':hours', $hours, PDO::PARAM_INT);
+	$stmt->bindParam(':rate', $rate, PDO::PARAM_INT);
+	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
 /*
  *	Db
  *

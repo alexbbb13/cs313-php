@@ -57,15 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				}
 			if(sizeof($allRows) > 0) {
 				$r = $allRows[0];
-                var_dump($r);
-				$applicationId = $r['id'];
+                $applicationId = $r['id'];
 				$money  = $r['rate_in_cents']/100;
 			    setlocale(LC_MONETARY, 'en_US');
 				$projected_hours = $r['projected_hours'];
 				$cover_letter = $r['cover_letter'];
-                //$applicationId, $jobId, $freelanceId, $title, $coverLetter, $projectedHours, $rate_in_cents
-				printForEdit($applicationId,$jobId, $freelanceId, $cover_letter, $projected_hours,  $money);
+                //Editing old
+            	printForEdit($applicationId,$jobId, $freelanceId, $cover_letter, $projected_hours,  $money);
 			} else {
+                //creating new
 				printForEdit(null,$jobId, $freelanceId, '', 0.5,  10);
 			}
 } 
