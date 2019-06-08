@@ -347,6 +347,31 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 	return $rows;
 }
 
+function selectAllApplicationsForUser($db, $userId) {
+	$stmt = $db->prepare('
+		SELECT
+            jobs.id as jobsId,
+  			applications.id as applicationId,
+  			jobs.user_id as clientUserId,
+  			applications.user_id as freelancerUserId,
+  			applications.freelance_service_id as freelancerServiceId,
+  			freelance_services.title,
+  			applications.rate_in_cents,
+  			applications.projected_hours
+		FROM
+  			applications
+  		INNER JOIN jobs on jobs.id = applications.job_id
+  		INNER JOIN freelance_services on applications.freelance_service_id = freelance_services.id
+		WHERE
+  			japplications.user_id = :userId
+		');
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
 function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
 	$stmt = $db->prepare('
 		SELECT
