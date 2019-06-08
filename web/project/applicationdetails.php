@@ -51,6 +51,7 @@ function printRow($name, $value){
 function printTableRow($r, $id) {
 	echo'<h2>Application details:</h2><br>
 	<table class="fancy">';
+  printRow('Freelancer', '<a href="freelancedetails.php?id='.$r['freelanceruserid'].'>Details</a>');
 	printRow('Title', $r['title']);
 	printRow('Cover Letter:', $r['cover_letter']);
 	$money  = $r['rate_in_cents']/100;
