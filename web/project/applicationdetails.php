@@ -49,7 +49,7 @@ function printRow($name, $value){
   			applications.cover_letter
 */
 function printTableRow($r) {
-  var_dump($r)
+  var_dump($r);
 	echo'<h2>Application details:</h2><br>
 	<table class="fancy">';
   printRow('Freelancer', '<a href="freelancedetails.php?id='.$r['freelanceruserid'].'">More</a>');
