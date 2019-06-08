@@ -6,8 +6,6 @@ create table users
 	 username varchar(100) not null,
     login varchar(40) not null UNIQUE,
     password varchar(100) not null,
-    salt varchar(20) not null,
-    password_hash varchar(100) not null, 
     status status not null,
     created_at timestamp not null
 );
