@@ -363,9 +363,8 @@ function selectAllApplicationsForUser($db, $userId) {
   		INNER JOIN jobs on jobs.id = applications.job_id
   		INNER JOIN freelance_services on applications.freelance_service_id = freelance_services.id
 		WHERE
-  			japplications.user_id = :userId
+  			applications.user_id = :userId
 		');
-	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
 	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
