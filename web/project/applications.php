@@ -34,8 +34,7 @@ require 'db.php';
   			applications.projected_hours
 */
 function printTable($allRows) {
-	echo'<h2>Applications:</h2><br>';
-	echo '<table class ="fancy">';
+		echo '<table class ="fancy">';
 	echo '<tr>';
     echo '<th>Title</th>';
     echo '<th>Rate</th>';
