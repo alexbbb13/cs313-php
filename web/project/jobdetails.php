@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					{
 					    $id = $_GET['id'];
 						$allRows = selectJobsById($db, $id);
-						var_dump($allRows);				    
+						//var_dump($allRows);				    
 					} else {
 					    echo '<b>Error!</b>';
 					}

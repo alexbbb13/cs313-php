@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $rate =         $_POST['rate'];
                 $hours =        $_POST['hours'];
 
-	        	insertApplication($db, $jobId, $freelanceId, $userId, $description, $hours, $rate);
+	        	insertApplication($db, $jobId, $freelanceId, $userId, $description, $hours, $rate * 100);
 				}
 } 
 

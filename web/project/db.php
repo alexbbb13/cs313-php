@@ -324,7 +324,7 @@ function selectApplications($db, $jobId, $freelanceId, $userId) {
 function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 	$stmt = $db->prepare('
 		SELECT
-  			jobs.id as jobId,
+            jobs.id as jobsId,
   			applications.id as applicationId,
   			jobs.user_id as clientUserId,
   			applications.user_id as freelancerUserId,
@@ -337,7 +337,7 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
   		INNER JOIN applications on jobId = applications.job_id
   		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
 		WHERE
-  			jobId = :id
+  			jobsId = :jobId
   			AND clientUserId = :userId
 		');
 	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
