@@ -49,10 +49,9 @@ function printRow($name, $value){
   			applications.cover_letter
 */
 function printTableRow($r) {
-  var_dump($r);
-	echo'<h2>Application details:</h2><br>
+ 	echo'<h2>Application details:</h2><br>
 	<table class="fancy">';
-  printRow('Freelancer', '<a href="freelancedetails.php?id='.$r['freelanceruserid'].'">More</a>');
+  printRow('Freelancer', '<a href="freelancedetails.php?id='.$r['freelancerserviceid'].'">More</a>');
 	printRow('Title', $r['title']);
 	printRow('Cover Letter:', $r['cover_letter']);
 	$money  = $r['rate_in_cents']/100;
@@ -81,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					printTableRow($allRows[0]);
 				}
 
-    } else {
+ s   } else {
     	//echo "<p>no request method!</p>";
     }
 ?>

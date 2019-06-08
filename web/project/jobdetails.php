@@ -37,7 +37,9 @@ function printTable($r, $id, $user) {
 	setlocale(LC_MONETARY, 'en_US');
 	printRow('Rate', money_format('%(#10n', $money));
 	printRow('Projected Hours', $r['projected_hours']);
-	if ($user != null) {
+	$job_user_id =$r['job_user_id'];
+	//User exists and user is not a job creator (cannot apply to self reated jobs)
+	if ($user != null && $job_user_id !== $user) {
 		printRow('Action', '<a href="applyselect.php?job_id='.$r['id'].'">Click to apply</a></td>');
 	}
 	echo '</table>';			
