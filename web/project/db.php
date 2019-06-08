@@ -350,7 +350,7 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
 	$stmt = $db->prepare('
 		SELECT
-  			jobs.id as jobId,
+  			jobs.id as jobid,
   			applications.id as applicationId,
   			jobs.user_id as clientUserId,
   			applications.user_id as freelancerUserId,
@@ -365,7 +365,7 @@ function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
   		INNER JOIN applications on jobs.id = applications.job_id
   		INNER JOIN freelance_services on applications.user_id = freelance_services.id
 		WHERE
-  			jobs.id = :id
+  			jobs.id = :jobId
   			AND jobs.user_id = :userId
   			AND applications.id = :applicationId
 		');
