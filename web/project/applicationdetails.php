@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 					    $jobId = $_GET['job_id'];
 					    $userId = getSessionUser();
 						$allRows = selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId);
+            var_dump($allRows);
 					} else {
 					    echo '<b>Error!</b>';
 					}
