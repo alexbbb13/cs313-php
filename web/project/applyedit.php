@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 				}
 			if(sizeof($allRows) > 0) {
 				$r = $allRows[0];
+                var_dump($r);
 				$applicationId = $r['id'];
 				$money  = $r['rate_in_cents']/100;
 			    setlocale(LC_MONETARY, 'en_US');
