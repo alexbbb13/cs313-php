@@ -156,9 +156,13 @@ function insertFreelanceService($db, $userId, $title, $subtitle, $description, $
 function deleteFreelanceService($db, $userId, $freelanceServiceId){
 	$stmt = $db->prepare('DELETE FROM freelance_services WHERE id=:freelanceServiceId  AND user_id=:user_id');
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);'SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user'
+	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);
 	$stmt->execute();
 }
+
+/*
+'SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user'
+*/
 
 function updateFreelanceService($db, $userId, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents){
 	$stmt = $db->prepare('UPDATE freelance_services SET title=:title, subtitle=:subtitle, description=:description, rate_in_cents=:rate_in_cents, active=:active WHERE id=:freelanceServiceId AND user_id=:user_id');
