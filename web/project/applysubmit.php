@@ -25,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 isset($_POST['rate']) &&
                 isset($_POST['hours']) 
                 ) {
-    	        	$jobId =        $_POST['job_id'];
-    	        	$freelanceId =  $_POST['freelance_id'];
-    	        	$userId = getSessionUser();
-                    $description =  $_POST['description'];
-                    $rate =         $_POST['rate'];
-                    $hours =        $_POST['hours'];
+    	        	$jobId =        htmlspecialchars($_POST['job_id']);
+    	        	$freelanceId =  htmlspecialchars($_POST['freelance_id']);
+    	        	$userId =       getSessionUser();
+                    $description =  htmlspecialchars($_POST['description']);
+                    $rate =         htmlspecialchars($_POST['rate']);
+                    $hours =        htmlspecialchars($_POST['hours']);
 
                     $allRows = selectApplications($db, $jobId, $freelanceId, $userId);
                     if(sizeof($allRows) > 1) {

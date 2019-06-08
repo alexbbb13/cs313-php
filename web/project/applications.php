@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
            if (isset($_GET['job_id']) && $_GET['job_id'] !== '')
 					{
-					    $jobId = $_GET['job_id'];
+					    $jobId = htmlspecialchars($_GET['job_id']);
 					    $userId = getSessionUser();
 						$allRows = selectAllApplicationsForMyJob($db, $jobId, $userId);					    
 					} 

@@ -38,8 +38,8 @@ require 'navbar.php';
    
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login']) && isset($_POST['password'])){
         // retrieve the form data by using the element's name attributes value as key
-        $login = $_POST['login'];
-        $password = $_POST['password'];
+        $login = htmlspecialchars($_POST['login']);
+        $password = htmlspecialchars($_POST['password']);
         $db = getDb();
         $users = selectByLogin($db, $login);//listAll($db); //
 
@@ -51,7 +51,7 @@ require 'navbar.php';
                 // user is found, storing the user Id into session
                      $r = $users[0];
                 $id = $r['id'];
-                $passwordInput = $_POST['password'];
+                $passwordInput = htmlspecialchars($_POST['password']);
                 $hashedPassword = $r['password'];
                 $userName = $r['username'];
                 if(password_verify($password, $hashedPassword)) {

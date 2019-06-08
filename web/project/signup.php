@@ -67,10 +67,10 @@ session_start();
         isset($_POST['password_copy'])
     ){
         // retrieve the form data by using the element's name attributes value as key
-        $username = $_POST['username'];
-        $login = $_POST['login'];
-        $password = $_POST['password'];
-        $passwordCopy = $_POST['password_copy'];
+        $username = htmlspecialchars($_POST['username']);
+        $login = htmlspecialchars($_POST['login']);
+        $password = htmlspecialchars($_POST['password']);
+        $passwordCopy = htmlspecialchars($_POST['password_copy']);
         $db = getDb();
         $users = selectByLogin($db, $login);
         //$users = selectByLoginPassword($db, $login, $password);

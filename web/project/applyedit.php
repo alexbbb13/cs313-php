@@ -50,8 +50,8 @@ function printForEdit( $applicationId, $jobId, $freelanceId, $coverLetter, $proj
 $db = getDb();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
             if ( isset($_GET['job_id']) && $_GET['job_id'] !== '' && isset($_GET['freelance_id']) ) {
-	        	$jobId = $_GET['job_id'];
-	        	$freelanceId = $_GET['freelance_id'];
+	        	$jobId = htmlspecialchars($_GET['job_id']);
+	        	$freelanceId = htmlspecialchars($_GET['freelance_id']);
 	        	$userId = getSessionUser();
 	        	$allRows = selectApplications($db, $jobId, $freelanceId, $userId);
 				}

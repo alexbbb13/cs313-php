@@ -24,9 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 isset($_POST['application_id'])
                 
                 ) {
-    	        	$jobId =        $_POST['job_id'];
-    	        	$freelanceId =  $_POST['freelance_id'];
-                    $applicationId = $_POST['application_id'];
+    	        	$jobId =        htmlspecialchars($_POST['job_id']);
+    	        	$freelanceId =  htmlspecialchars($_POST['freelance_id']);
+                    $applicationId = htmlspecialchars($_POST['application_id']);
     	        	$userId = getSessionUser();
                    
                     $allRows = selectApplicationById($db, $applicationId, $jobId, $freelanceId, $userId);

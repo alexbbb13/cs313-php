@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         // retrieve the form data by using the element's name attributes value as key
            if (isset($_GET['id']))
 					{
-					    $id = $_GET['id'];
+					    $id = htmlspecialchars($_GET['id']);
 						$allRows = selectJobsById($db, $id);
 						//var_dump($allRows);				    
 					} else {

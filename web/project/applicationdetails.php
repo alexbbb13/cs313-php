@@ -69,8 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
            	   getSessionUser() != null 
               )
 					{
-					    $applicationId = $_GET['application_id'];
-					    $jobId = $_GET['job_id'];
+					    $applicationId = htmlspecialchars($_GET['application_id']);
+					    $jobId = htmlspecialchars($_GET['job_id']);
 					    $userId = getSessionUser();
 						$allRows = selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId);
           } else {

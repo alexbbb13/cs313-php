@@ -16,18 +16,17 @@ session_start();
 require 'navbar.php';
 ?>	
 	
-<h2>My open jobs</h2>
+<h2>My Open Jobs:</h2>
 <br>
 <br><form action="jobedit.php" method="GET">
 	<input type="submit" value="Create new job" >
-	</form><br>
+	</form><br>';
 
 
 <?php
 require 'db.php';
 //Local or Heroku
 function printTable($allRows) {
-	echo'<h2>My Open Jobs:</h2><br>';
 	echo '<table class ="fancy">';
 	echo '<tr>';
     echo '<th>Title</th>';

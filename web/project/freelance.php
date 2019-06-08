@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	        $my = isset($_GET['my']) && $_GET['my']== true && getSessionUser()!=null;
 	        if ( isset($_GET['filter']) && $_GET['filter'] !== '')
            		{
-					    $filter = $_GET['filter'];
+					    $filter = htmlspecialchars($_GET['filter']);
 						if ($my) {
 							showAddNewButton();
 							$allRows = selectFreelanceByNameUser($db, $filter, getSessionUser());
