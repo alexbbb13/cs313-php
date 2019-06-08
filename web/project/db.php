@@ -269,14 +269,14 @@ function updateJob($db, $user, $jobId, $title, $description, $rate_in_cents, $pr
 }
 
 function insertJob($db, $user, $title, $description, $rate_in_cents, $projectedHours){
-	$stmt = $db->prepare('INSERT INTO jobs (user_id, title, description, rate_in_cents, projected_hours, created_at) VALUES (:user_id, :title, :description, :rate_in_cents, :projected_hours, CURRENT_TIMESTAMP)');
-	$active = true;
+	$stmt = $db->prepare('INSERT INTO jobs (user_id, title, description, rate_in_cents, projected_hours, job_status, created_at) VALUES (:user_id, :title, :description, :rate_in_cents, :projected_hours, :job_status, CURRENT_TIMESTAMP)');
+	$jobStatus = 'Open';
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
 	$stmt->bindParam(':rate_in_cents', $rate_in_cents, PDO::PARAM_INT);
 	$stmt->bindParam(':projected_hours', $projectedHours, PDO::PARAM_STR, 20);
-	$stmt->bindParam(':active', $active, PDO::PARAM_INT);
+	$stmt->bindParam(':job_status', $jobStatus, PDO::PARAM_STR, 20);
 	$stmt->execute();
 	return $db->lastInsertId('jobs_id_seq');
 }
