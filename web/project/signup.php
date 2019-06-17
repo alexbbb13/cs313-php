@@ -19,13 +19,15 @@ session_start();
    
     function printNoUser($inRed) {
         if ($inRed === true) {
-            $asterisk = '*';
+            $asterisk = 'Passwords do not match ';
         } else {
             $asterisk = '';    
         }
         echo '<h2>Signup</h2>
         <br>
         <form action="./signup.php" method="POST">
+        Username:
+        <input name="username" type="text"><br><br>
         E-mail:
         <input name="login" type="text"><br><br>
         Password:
@@ -38,9 +40,9 @@ session_start();
         </form>';
     }
 
-   function insertUserToDb($db, $login, $password) {
+   function insertUserToDb($db, $username, $login, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        insertUser($db, $login, $hashedPassword);
+        return insertUser($db, $username, $login, $hashedPassword);
     }
 
 
@@ -51,20 +53,24 @@ session_start();
     }
 
     function checkValid($password){
-        $regexLength = "/[0-9a-zA-Z]{7,}/";
-        $regexNum = "/[0-9]/";
-        return (preg_match($regexLength, $password) && preg_match($regexNum, $password));
+        //@TODO uncomment in production and make password strength message
+        //$regexLength = "/[0-9a-zA-Z]{7,}/";
+        //$regexNum = "/[0-9]/";
+        //return (preg_match($regexLength, $password) && preg_match($regexNum, $password));
+        return true;
     }
    
     if ($_SERVER["REQUEST_METHOD"] == "POST" && 
+        isset($_POST['username']) && 
         isset($_POST['login']) && 
         isset($_POST['password']) && 
         isset($_POST['password_copy'])
     ){
         // retrieve the form data by using the element's name attributes value as key
-        $login = $_POST['login'];
-        $password = $_POST['password'];
-        $passwordCopy = $_POST['password_copy'];
+        $username = htmlspecialchars($_POST['username']);
+        $login = htmlspecialchars($_POST['login']);
+        $password = htmlspecialchars($_POST['password']);
+        $passwordCopy = htmlspecialchars($_POST['password_copy']);
         $db = getDb();
         $users = selectByLogin($db, $login);
         //$users = selectByLoginPassword($db, $login, $password);
@@ -73,9 +79,11 @@ session_start();
                 //User not found
                 //Cheking password match 
                 if($password == $passwordCopy && checkValid($password)) {
-                   $user_id = insertUserToDb($db, $login, $password);
-                   setSessionUser($user_id, $login);
-                   redirectToWelcome();
+                   $user_id = insertUserToDb($db, $username, $login, $password);
+                   if ($user_id !== null) {
+                        setSessionUser($user_id, $username);
+                        redirectToWelcome();
+                    }
                 } else {
                     // Passwords do not match
                     printNoUser(true);

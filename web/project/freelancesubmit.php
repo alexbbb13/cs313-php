@@ -13,21 +13,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		   if (isset($_POST['delete']) && $_POST['delete']=='true' && isset($_POST['freelance_id'])) {
 		   	// a request to delete the freelance service
 		   	        $db = getDb();
-		   			$freelanceServiceId = $_POST['freelance_id'];
+		   			$freelanceServiceId = htmlspecialchars($_POST['freelance_id']);
 		   			deleteFreelanceService($db, $user, $freelanceServiceId);
 		   } elseif (isset($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['rate_in_dollars'])){
 
-						$title = $_POST['title'];
-						$subtitle = $_POST['subtitle'];
-						$rate_in_cents = (int)($_POST['rate_in_dollars']*100);
+						$title = htmlspecialchars($_POST['title']);
+						$subtitle = htmlspecialchars($_POST['subtitle']);
+						$rate_in_cents = (int)htmlspecialchars(($_POST['rate_in_dollars']*100));
 						if (isset($_POST['description'])) {
-							$description = $_POST['description'];
+							$description = htmlspecialchars($_POST['description']);
 						} else {
 							$description = "";
 						}
 						$db = getDb();
 						if (isset($_POST['freelance_id'])) {
-							$freelanceServiceId = $_POST['freelance_id'];
+							$freelanceServiceId = htmlspecialchars($_POST['freelance_id']);
 							//var_dump($freelanceServiceId)
 							updateFreelanceService($db, $user, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents);
 						} else {

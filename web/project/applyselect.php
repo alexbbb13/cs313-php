@@ -61,7 +61,7 @@ function printTable($allRows, $editable, $jobId) {
 $db = getDb();
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	        if ( isset($_GET['job_id']) && $_GET['job_id'] !== '') {
-	        	$jobId = $_GET['job_id'];
+	        	$jobId = htmlspecialchars($_GET['job_id']);
 				$allRows = selectFreelanceAllUser($db, getSessionUser());
 				}
 			if(sizeof($allRows) > 0) {

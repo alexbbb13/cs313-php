@@ -31,15 +31,19 @@ function selectByBook($db, $book) {
  *
  */
 
-function insertUser($db, $login, $password) {
+function insertUser($db, $username, $login, $password) {
+	$filteredUsername = filter_var($username, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredLogin = filter_var($login, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
 	$filteredPassword = filter_var($password, FILTER_SANITIZE_STRING, FILTER_NULL_ON_FAILURE);
-	if(null == $filteredLogin || null == $filteredPassword) {
+	if(null == $filteredLogin || null == $filteredPassword || null == $filteredUsername) {
 		return null;
 	}
-	$stmt = $db->prepare('INSERT INTO users (login, password) VALUES (:login,:password)');
+	$status = 'Active';
+	$stmt = $db->prepare('INSERT INTO users (username, login, password, status, created_at) VALUES (:username,:login,:password,:status, CURRENT_TIMESTAMP)');
+	$stmt->bindParam(':username', $filteredUsername, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':login', $filteredLogin, PDO::PARAM_STR, 40);
-	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 40);
+	$stmt->bindParam(':password', $filteredPassword, PDO::PARAM_STR, 80);
+	$stmt->bindParam(':status', $status, PDO::PARAM_STR, 80);
 	$stmt->execute();
 	return $db->lastInsertId('users_id_seq');
 }
@@ -156,9 +160,13 @@ function insertFreelanceService($db, $userId, $title, $subtitle, $description, $
 function deleteFreelanceService($db, $userId, $freelanceServiceId){
 	$stmt = $db->prepare('DELETE FROM freelance_services WHERE id=:freelanceServiceId  AND user_id=:user_id');
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);'SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user'
+	$stmt->bindParam(':freelanceServiceId', $freelanceServiceId, PDO::PARAM_INT);
 	$stmt->execute();
 }
+
+/*
+'SELECT freelance_services.id, users.username, freelance_services.title, freelance_services.subtitle, freelance_services.description, freelance_services.rate_in_cents FROM freelance_services INNER JOIN users on freelance_services.user_id=users.id WHERE freelance_services.id=:id AND users.id=:user'
+*/
 
 function updateFreelanceService($db, $userId, $freelanceServiceId, $title, $subtitle, $description, $rate_in_cents){
 	$stmt = $db->prepare('UPDATE freelance_services SET title=:title, subtitle=:subtitle, description=:description, rate_in_cents=:rate_in_cents, active=:active WHERE id=:freelanceServiceId AND user_id=:user_id');
@@ -196,7 +204,7 @@ function selectJobsById($db, $id) {
 	if(null == $filteredId) {
 		return null;
 	}
-	$stmt = $db->prepare('SELECT jobs.id, users.username, jobs.title, jobs.description, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN users on jobs.user_id=users.id WHERE jobs.id=:id');
+	$stmt = $db->prepare('SELECT jobs.id, users.username, users.id as job_user_id, jobs.title, jobs.description, jobs.rate_in_cents, jobs.projected_hours FROM jobs INNER JOIN users on jobs.user_id=users.id WHERE jobs.id=:id');
 	$stmt->bindParam(':id', $filteredId, PDO::PARAM_STR, 40);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -260,15 +268,15 @@ function updateJob($db, $user, $jobId, $title, $description, $rate_in_cents, $pr
 	$stmt->execute();
 }
 
-function insertJob($db, $user, $title, $description, $rate_in_cents, $projectedHours){
-	$stmt = $db->prepare('INSERT INTO jobs (user_id, title, description, rate_in_cents, projected_hours, created_at) VALUES (:user_id, :title, :description, :rate_in_cents, :projected_hours, CURRENT_TIMESTAMP)');
-	$active = true;
+function insertJob($db, $userId, $title, $description, $rate_in_cents, $projectedHours){
+	$stmt = $db->prepare('INSERT INTO jobs (user_id, title, description, rate_in_cents, projected_hours, job_status, created_at) VALUES (:user_id, :title, :description, :rate_in_cents, :projected_hours, :job_status, CURRENT_TIMESTAMP)');
+	$jobStatus = 'Open';
 	$stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 	$stmt->bindParam(':title', $title, PDO::PARAM_STR, 40);
 	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
 	$stmt->bindParam(':rate_in_cents', $rate_in_cents, PDO::PARAM_INT);
 	$stmt->bindParam(':projected_hours', $projectedHours, PDO::PARAM_STR, 20);
-	$stmt->bindParam(':active', $active, PDO::PARAM_INT);
+	$stmt->bindParam(':job_status', $jobStatus, PDO::PARAM_STR, 20);
 	$stmt->execute();
 	return $db->lastInsertId('jobs_id_seq');
 }
@@ -313,10 +321,29 @@ function selectApplications($db, $jobId, $freelanceId, $userId) {
 	return $rows;
 }
 
+function selectApplicationById($db, $applicationId, $jobId, $freelanceId, $userId) {
+	$stmt = $db->prepare('SELECT * FROM applications WHERE job_id=:jobId AND user_id=:userId AND freelance_service_id=:freelanceId AND id=:applicationId');
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function deleteApplication($db, $applicationId) {
+	$stmt = $db->prepare('DELETE FROM applications WHERE id=:applicationId');
+	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
 function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 	$stmt = $db->prepare('
 		SELECT
-  			jobs.id as jobId,
+            jobs.id as jobsId,
   			applications.id as applicationId,
   			jobs.user_id as clientUserId,
   			applications.user_id as freelancerUserId,
@@ -326,13 +353,37 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
   			applications.projected_hours
 		FROM
   			jobs
-  		INNER JOIN applications on jobId = applications.job_id
-  		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
+  		INNER JOIN applications on jobs.id = applications.job_id
+  		INNER JOIN freelance_services on applications.freelance_service_id = freelance_services.id
 		WHERE
-  			jobId = :id
-  			AND clientUserId = :userId
+  			jobs.id = :jobId
+  			AND jobs.user_id = :userId
 		');
 	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->execute();
+	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $rows;
+}
+
+function selectAllApplicationsForUser($db, $userId) {
+	$stmt = $db->prepare('
+		SELECT
+            jobs.id as jobsId,
+  			applications.id as applicationId,
+  			jobs.user_id as clientUserId,
+  			applications.user_id as freelancerUserId,
+  			applications.freelance_service_id as freelancerServiceId,
+  			freelance_services.title,
+  			applications.rate_in_cents,
+  			applications.projected_hours
+		FROM
+  			applications
+  		INNER JOIN jobs on jobs.id = applications.job_id
+  		INNER JOIN freelance_services on applications.freelance_service_id = freelance_services.id
+		WHERE
+  			applications.user_id = :userId
+		');
 	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 	$stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -342,7 +393,7 @@ function selectAllApplicationsForMyJob($db, $jobId, $userId) {
 function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
 	$stmt = $db->prepare('
 		SELECT
-  			jobs.id as jobId,
+  			jobs.id as jobid,
   			applications.id as applicationId,
   			jobs.user_id as clientUserId,
   			applications.user_id as freelancerUserId,
@@ -354,12 +405,12 @@ function selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId) {
   			applications.cover_letter
 		FROM
   			jobs
-  		INNER JOIN applications on jobId = applications.job_id
-  		INNER JOIN freelance_services on freelancerServiceId = freelance_services.id
+  		INNER JOIN applications on jobs.id = applications.job_id
+  		INNER JOIN freelance_services on applications.user_id = freelance_services.id
 		WHERE
-  			jobId = :id
-  			AND clientUserId = :userId
-  			AND applicationId = :applicationId
+  			jobs.id = :jobId
+  			AND jobs.user_id = :userId
+  			AND applications.id = :applicationId
 		');
 	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
 	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
@@ -398,6 +449,28 @@ function insertApplication($db, $jobId, $freelanceId, $userId, $description, $ho
     $stmt->execute();
 	$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
+}
+
+function updateApplication($db, $applicationId, $jobId, $freelanceId, $userId, $description, $hours,  $rate) {
+	$stmt = $db->prepare('
+		UPDATE applications 
+		SET job_id=:jobId, 
+		user_id=:userId, 
+		freelance_service_id=:freelanceId, 
+		rate_in_cents=:rate, 
+		projected_hours=:hours, 
+		cover_letter=:description,  
+		accepted=false, 
+		created_at=CURRENT_TIMESTAMP WHERE id=:applicationId');
+	
+	$stmt->bindParam(':jobId', $jobId, PDO::PARAM_INT);
+	$stmt->bindParam(':freelanceId', $freelanceId, PDO::PARAM_INT);
+	$stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+	$stmt->bindParam(':description', $description, PDO::PARAM_STR, 2000);
+	$stmt->bindParam(':hours', $hours, PDO::PARAM_INT);
+	$stmt->bindParam(':rate', $rate, PDO::PARAM_INT);
+	$stmt->bindParam(':applicationId', $applicationId, PDO::PARAM_INT);
+    $stmt->execute();
 }
 
 /*

@@ -48,9 +48,10 @@ function printRow($name, $value){
   			applications.projected_hours,
   			applications.cover_letter
 */
-function printTableRow($r, $id) {
-	echo'<h2>Application details:</h2><br>
+function printTableRow($r) {
+ 	echo'<h2>Application details:</h2><br>
 	<table class="fancy">';
+  printRow('Freelancer', '<a href="freelancedetails.php?id='.$r['freelancerserviceid'].'">More</a>');
 	printRow('Title', $r['title']);
 	printRow('Cover Letter:', $r['cover_letter']);
 	$money  = $r['rate_in_cents']/100;
@@ -68,15 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
            	   getSessionUser() != null 
               )
 					{
-					    $applicationId = $_GET['application_id'];
-					    $jobId = $_GET['job_id'];
+					    $applicationId = htmlspecialchars($_GET['application_id']);
+					    $jobId = htmlspecialchars($_GET['job_id']);
 					    $userId = getSessionUser();
 						$allRows = selectOneApplicationForMyJob($db, $jobId, $applicationId, $userId);
-					} else {
+          } else {
 					    echo '<b>Error!</b>';
 					}
 				if(sizeof($allRows) > 0) {
-					printTableRow($allRows[0], $filter);
+					printTableRow($allRows[0]);
 				}
 
     } else {
